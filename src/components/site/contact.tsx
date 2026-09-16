@@ -3,6 +3,7 @@ import { Github, Linkedin, Mail, MapPin, Phone, Twitter } from "lucide-react";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Reveal } from "./reveal";
+import { openEmail } from "@/lib/contact-actions";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Please add your name").max(100),
@@ -33,11 +34,7 @@ export function Contact() {
 
     setSubmitting(true);
     const { name, email, message } = parsed.data;
-    const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
-    window.location.href = `mailto:founders@safeautonomy.in?subject=${encodeURIComponent(
-      `Enquiry from ${name}`,
-    )}&body=${body}`;
-    toast.success("Opening your email app to send this to the founders.");
+    openEmail(`Enquiry from ${name}`, `${message}\n\n— ${name} (${email})`);
     form.reset();
     setSubmitting(false);
   }
@@ -63,17 +60,19 @@ export function Contact() {
 
         <Reveal delay={90}>
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <a
-              href="mailto:founders@safeautonomy.in?subject=Demo%20request"
-              className="inline-flex items-center rounded-lg bg-primary px-7 py-3.5 text-base font-semibold text-primary-foreground transition-transform duration-200 hover:scale-[1.04] hover:shadow-[var(--shadow-glow)]"
+            <button
+              type="button"
+              onClick={() => openEmail("Demo request")}
+              className="inline-flex cursor-pointer items-center rounded-lg bg-primary px-7 py-3.5 text-base font-semibold text-primary-foreground transition-transform duration-200 hover:scale-[1.04] hover:shadow-[var(--shadow-glow)]"
             >
               Schedule a demo
-            </a>
+            </button>
             <a
-              href="mailto:founders@safeautonomy.in?subject=Pitch%20deck%20request"
-              className="inline-flex items-center rounded-lg border border-border px-7 py-3.5 text-base font-medium transition-transform duration-200 hover:scale-[1.04] hover:border-primary/50"
+              href="/safeautonomy-pitch-deck.pdf"
+              download
+              className="inline-flex cursor-pointer items-center rounded-lg border border-border px-7 py-3.5 text-base font-medium transition-transform duration-200 hover:scale-[1.04] hover:border-primary/50"
             >
-              Request pitch deck
+              Download pitch deck
             </a>
           </div>
         </Reveal>

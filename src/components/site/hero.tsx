@@ -1,5 +1,6 @@
 import { ArrowDown, Mail } from "lucide-react";
 import { Reveal } from "./reveal";
+import { openEmail, scrollToSection } from "@/lib/contact-actions";
 
 const badges = ["SIH 2026 Finalist", "MathWorks Partner", "IIT Partner College", "IEEE Member"];
 
@@ -36,18 +37,20 @@ export function Hero() {
 
         <Reveal delay={240}>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <a
-              href="#solution"
-              className="inline-flex items-center gap-2 rounded-lg bg-primary px-7 py-3.5 text-base font-semibold text-primary-foreground transition-transform duration-200 hover:scale-[1.04] hover:shadow-[var(--shadow-glow)]"
+            <button
+              type="button"
+              onClick={() => scrollToSection("solution")}
+              className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-primary px-7 py-3.5 text-base font-semibold text-primary-foreground transition-transform duration-200 hover:scale-[1.04] hover:shadow-[var(--shadow-glow)]"
             >
               View demo <ArrowDown size={17} />
-            </a>
-            <a
-              href="mailto:founders@safeautonomy.in"
-              className="inline-flex items-center gap-2 rounded-lg border border-border px-7 py-3.5 text-base font-medium text-foreground transition-transform duration-200 hover:scale-[1.04] hover:border-primary/50"
+            </button>
+            <button
+              type="button"
+              onClick={() => openEmail("Hello from your website")}
+              className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-border px-7 py-3.5 text-base font-medium text-foreground transition-transform duration-200 hover:scale-[1.04] hover:border-primary/50"
             >
               <Mail size={17} /> Contact founders
-            </a>
+            </button>
           </div>
         </Reveal>
 

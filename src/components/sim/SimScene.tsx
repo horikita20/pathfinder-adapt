@@ -4,8 +4,9 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import type { Actor, CameraMode, DriverInput, World } from "@/lib/sim/engine";
 import { actorLabel, stepWorld } from "@/lib/sim/engine";
-import { makeAsphaltTexture, makeBuildingTexture, makeGroundTexture } from "@/lib/sim/textures";
+import { makeAsphaltTexture, makeGroundTexture } from "@/lib/sim/textures";
 import { ActorModel } from "./models";
+import { MarketStreet } from "./scenery";
 
 const RISK_COLOR = { low: "#00d9ff", medium: "#ff9f1c", high: "#ff3b30" } as const;
 const ROAD_LEN = 400;
@@ -44,40 +45,7 @@ function Road({ world }: { world: World }) {
   );
 }
 
-/* ------------------------------------------------------------- roadside */
-function Roadside({ world }: { world: World }) {
-  const texA = useMemo(() => makeBuildingTexture(), []);
-  const texB = useMemo(() => makeBuildingTexture(), []);
-  const group = useRef<THREE.Group>(null);
-  const spacing = 16;
-  const count = 26;
-  const half = world.scenario.roadWidth / 2;
-
-  useFrame(() => {
-    if (!group.current) return;
-    const base = Math.floor((world.ego.z - 80) / spacing);
-    group.current.children.forEach((child, i) => {
-      const slot = base + i;
-      child.position.z = slot * spacing;
-      const h = 4 + hash(slot) * 9;
-      child.scale.y = h / 6;
-      child.position.y = 0;
-      const side = i % 2 === 0 ? -1 : 1;
-      child.position.x = side * (half + 5 + hash(slot + 91) * 3);
-    });
-  });
-
-  return (
-    <group ref={group}>
-      {Array.from({ length: count }).map((_, i) => (
-        <mesh key={i} position={[0, 0, 0]} castShadow receiveShadow>
-          <boxGeometry args={[7, 6, 9]} />
-          <meshStandardMaterial map={i % 2 ? texA : texB} roughness={0.95} />
-        </mesh>
-      ))}
-    </group>
-  );
-}
+/* roadside scenery now lives in ./scenery (MarketStreet) */
 
 /* ---------------------------------------------------------------- actors */
 function ActorNode({ actor, showBoxes }: { actor: Actor; showBoxes: boolean }) {

@@ -322,16 +322,18 @@ function Scene({
 
   return (
     <>
-      <color attach="background" args={["#c9c3b4"]} />
-      <fogExp2 attach="fog" args={["#cbc5b6", world.scenario.fog]} />
-      <hemisphereLight args={["#eaddc2", "#5b4c39", 1.05]} />
+      <color attach="background" args={["#cfc6b2"]} />
+      <fogExp2 attach="fog" args={["#d3cab6", world.scenario.fog * 1.4 + 0.004]} />
+      <hemisphereLight args={["#f1e3c6", "#6a5a41", 0.85]} />
+      <ambientLight intensity={0.25} color="#e8dcc4" />
       <directionalLight
         ref={sunRef}
         position={[28, 42, 18]}
-        intensity={2.1}
-        color="#fff3dd"
+        intensity={2.4}
+        color="#ffeccb"
         castShadow={quality === "high"}
-        shadow-mapSize={[1024, 1024]}
+        shadow-bias={-0.0008}
+        shadow-mapSize={[2048, 2048]}
         shadow-camera-left={-40}
         shadow-camera-right={40}
         shadow-camera-top={40}
@@ -339,7 +341,7 @@ function Scene({
       />
       <SunFollower world={world} />
       <Road world={world} />
-      <Roadside world={world} />
+      <MarketStreet world={world} quality={quality} />
       <EgoVehicle world={world} cameraMode={cameraMode} />
       <PlannedPath world={world} />
       {world.actors.map((a) => (
@@ -362,8 +364,13 @@ export default function SimCanvas(props: {
     <Canvas
       shadows={props.quality === "high"}
       dpr={props.quality === "high" ? [1, 1.8] : 1}
-      camera={{ fov: 62, near: 0.1, far: 600, position: [0, 6, -12] }}
+      camera={{ fov: 58, near: 0.1, far: 600, position: [0, 6, -12] }}
       gl={{ antialias: props.quality === "high", powerPreference: "high-performance" }}
+      onCreated={({ gl }) => {
+        gl.toneMapping = THREE.ACESFilmicToneMapping;
+        gl.toneMappingExposure = 1.05;
+        gl.shadowMap.type = THREE.PCFSoftShadowMap;
+      }}
     >
       <Scene {...props} />
     </Canvas>

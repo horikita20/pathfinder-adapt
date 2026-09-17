@@ -2,11 +2,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { CameraMode, DriveMode, DriverInput, Metrics, SimEvent, World } from "@/lib/sim/engine";
 import { SCENARIOS, createWorld } from "@/lib/sim/engine";
 import SimCanvas from "./SimScene";
+import CameraFeed from "./CameraFeed";
 import { SimulatorHud } from "./SimulatorHud";
 
 export default function Simulator() {
   const [scenarioId, setScenarioId] = useState(SCENARIOS[0]!.id);
-  const [cameraMode, setCameraMode] = useState<CameraMode>("outside");
+  const [cameraMode, setCameraMode] = useState<CameraMode>("inside");
   const [driveMode, setDriveMode] = useState<DriveMode>("auto");
   const [quality, setQuality] = useState<"high" | "low">("high");
   const [running, setRunning] = useState(false);
@@ -86,14 +87,18 @@ export default function Simulator() {
 
   return (
     <div className="relative h-[100dvh] w-full overflow-hidden bg-[#0d1216]">
-      <SimCanvas
-        key={`${scenarioId}-${version}-${quality}`}
-        world={world}
-        cameraMode={cameraMode}
-        inputRef={inputRef}
-        onTick={onTick}
-        quality={quality}
-      />
+      {cameraMode === "inside" ? (
+        <CameraFeed key={`feed-${scenarioId}-${version}`} world={world} inputRef={inputRef} onTick={onTick} />
+      ) : (
+        <SimCanvas
+          key={`${scenarioId}-${version}-${quality}`}
+          world={world}
+          cameraMode={cameraMode}
+          inputRef={inputRef}
+          onTick={onTick}
+          quality={quality}
+        />
+      )}
       <SimulatorHud
         metrics={metrics}
         events={events}

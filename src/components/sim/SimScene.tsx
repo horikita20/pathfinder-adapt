@@ -4,8 +4,9 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import type { Actor, CameraMode, DriverInput, World } from "@/lib/sim/engine";
 import { actorLabel, stepWorld } from "@/lib/sim/engine";
-import { makeAsphaltTexture, makeBuildingTexture, makeGroundTexture } from "@/lib/sim/textures";
+import { makeAsphaltTexture, makeGroundTexture } from "@/lib/sim/textures";
 import { ActorModel } from "./models";
+import { MarketStreet } from "./scenery";
 
 const RISK_COLOR = { low: "#00d9ff", medium: "#ff9f1c", high: "#ff3b30" } as const;
 const ROAD_LEN = 400;
@@ -44,40 +45,7 @@ function Road({ world }: { world: World }) {
   );
 }
 
-/* ------------------------------------------------------------- roadside */
-function Roadside({ world }: { world: World }) {
-  const texA = useMemo(() => makeBuildingTexture(), []);
-  const texB = useMemo(() => makeBuildingTexture(), []);
-  const group = useRef<THREE.Group>(null);
-  const spacing = 16;
-  const count = 26;
-  const half = world.scenario.roadWidth / 2;
-
-  useFrame(() => {
-    if (!group.current) return;
-    const base = Math.floor((world.ego.z - 80) / spacing);
-    group.current.children.forEach((child, i) => {
-      const slot = base + i;
-      child.position.z = slot * spacing;
-      const h = 4 + hash(slot) * 9;
-      child.scale.y = h / 6;
-      child.position.y = 0;
-      const side = i % 2 === 0 ? -1 : 1;
-      child.position.x = side * (half + 5 + hash(slot + 91) * 3);
-    });
-  });
-
-  return (
-    <group ref={group}>
-      {Array.from({ length: count }).map((_, i) => (
-        <mesh key={i} position={[0, 0, 0]} castShadow receiveShadow>
-          <boxGeometry args={[7, 6, 9]} />
-          <meshStandardMaterial map={i % 2 ? texA : texB} roughness={0.95} />
-        </mesh>
-      ))}
-    </group>
-  );
-}
+/* roadside scenery now lives in ./scenery (MarketStreet) */
 
 /* ---------------------------------------------------------------- actors */
 function ActorNode({ actor, showBoxes }: { actor: Actor; showBoxes: boolean }) {
@@ -354,16 +322,18 @@ function Scene({
 
   return (
     <>
-      <color attach="background" args={["#c9c3b4"]} />
-      <fogExp2 attach="fog" args={["#cbc5b6", world.scenario.fog]} />
-      <hemisphereLight args={["#eaddc2", "#5b4c39", 1.05]} />
+      <color attach="background" args={["#cfc6b2"]} />
+      <fogExp2 attach="fog" args={["#d3cab6", world.scenario.fog * 0.7 + 0.0015]} />
+      <hemisphereLight args={["#f1e3c6", "#6a5a41", 0.85]} />
+      <ambientLight intensity={0.25} color="#e8dcc4" />
       <directionalLight
         ref={sunRef}
         position={[28, 42, 18]}
-        intensity={2.1}
-        color="#fff3dd"
+        intensity={2.4}
+        color="#ffeccb"
         castShadow={quality === "high"}
-        shadow-mapSize={[1024, 1024]}
+        shadow-bias={-0.0008}
+        shadow-mapSize={[2048, 2048]}
         shadow-camera-left={-40}
         shadow-camera-right={40}
         shadow-camera-top={40}
@@ -371,7 +341,7 @@ function Scene({
       />
       <SunFollower world={world} />
       <Road world={world} />
-      <Roadside world={world} />
+      <MarketStreet world={world} quality={quality} />
       <EgoVehicle world={world} cameraMode={cameraMode} />
       <PlannedPath world={world} />
       {world.actors.map((a) => (
@@ -394,8 +364,13 @@ export default function SimCanvas(props: {
     <Canvas
       shadows={props.quality === "high"}
       dpr={props.quality === "high" ? [1, 1.8] : 1}
-      camera={{ fov: 62, near: 0.1, far: 600, position: [0, 6, -12] }}
+      camera={{ fov: 58, near: 0.1, far: 600, position: [0, 6, -12] }}
       gl={{ antialias: props.quality === "high", powerPreference: "high-performance" }}
+      onCreated={({ gl }) => {
+        gl.toneMapping = THREE.ACESFilmicToneMapping;
+        gl.toneMappingExposure = 1.05;
+        gl.shadowMap.type = THREE.PCFSoftShadowMap;
+      }}
     >
       <Scene {...props} />
     </Canvas>

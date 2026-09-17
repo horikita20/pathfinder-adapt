@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ElementType, type ReactNode } from "react";
+import { createElement, useEffect, useRef, useState, type ElementType, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 export function Reveal({
@@ -33,15 +33,15 @@ export function Reveal({
     return () => observer.disconnect();
   }, []);
 
-  return (
-    <Tag
-      ref={ref}
-      data-visible={visible}
-      style={{ transitionDelay: `${delay}ms` }}
-      className={cn("reveal", className)}
-    >
-      {children}
-    </Tag>
+  return createElement(
+    Tag,
+    {
+      ref,
+      "data-visible": visible,
+      style: { transitionDelay: `${delay}ms` },
+      className: cn("reveal", className),
+    },
+    children,
   );
 }
 

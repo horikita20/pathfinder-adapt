@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -49,12 +50,12 @@ export function SiteNav() {
           ))}
         </ul>
 
-        <a
-          href="#contact"
+        <Link
+          to="/simulator"
           className="hidden rounded-md border border-primary/45 px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/10 md:inline-flex"
         >
-          Investor deck
-        </a>
+          Launch simulator
+        </Link>
 
         <button
           type="button"
@@ -82,6 +83,13 @@ export function SiteNav() {
               </li>
             ))}
           </ul>
+          <Link
+            to="/simulator"
+            onClick={() => setOpen(false)}
+            className="mt-4 inline-flex rounded-md border border-primary/45 px-4 py-2 text-sm font-medium text-primary"
+          >
+            Launch simulator
+          </Link>
         </div>
       )}
     </header>

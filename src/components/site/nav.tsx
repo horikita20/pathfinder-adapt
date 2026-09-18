@@ -4,13 +4,13 @@ import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { href: "#home", label: "Home" },
-  { href: "#problem", label: "Problem" },
-  { href: "#solution", label: "Solution" },
-  { href: "#market", label: "Market" },
-  { href: "#model", label: "Model" },
-  { href: "#team", label: "Team" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#home", label: "Home" },
+  { href: "/#problem", label: "Problem" },
+  { href: "/#solution", label: "Solution" },
+  { href: "/autonomous-driving-india", label: "Why India" },
+  { href: "/#model", label: "Model" },
+  { href: "/team", label: "Team" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export function SiteNav() {

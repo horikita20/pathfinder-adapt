@@ -39,7 +39,7 @@ function PerceptionPage() {
     <main className="relative bg-[#070b0f]">
       <Link
         to="/"
-        className="absolute right-4 top-4 z-20 rounded-full border border-white/10 bg-black/50 px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest text-[#9aa4ac] backdrop-blur hover:text-white"
+        className="absolute bottom-4 left-4 z-20 rounded-full border border-white/10 bg-black/50 px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest text-[#9aa4ac] backdrop-blur hover:text-white"
       >
         ← Back to site
       </Link>

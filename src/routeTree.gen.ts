@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as HardwareAssemblyRouteImport } from './routes/hardware-assembly'
 import { Route as PerceptionRouteImport } from './routes/perception'
 import { Route as SimulatorRouteImport } from './routes/simulator'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HardwareAssemblyRoute = HardwareAssemblyRouteImport.update({
+  id: '/hardware-assembly',
+  path: '/hardware-assembly',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PerceptionRoute = PerceptionRouteImport.update({
@@ -31,30 +37,34 @@ const SimulatorRoute = SimulatorRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/hardware-assembly': typeof HardwareAssemblyRoute
   '/perception': typeof PerceptionRoute
   '/simulator': typeof SimulatorRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/hardware-assembly': typeof HardwareAssemblyRoute
   '/perception': typeof PerceptionRoute
   '/simulator': typeof SimulatorRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/hardware-assembly': typeof HardwareAssemblyRoute
   '/perception': typeof PerceptionRoute
   '/simulator': typeof SimulatorRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/perception' | '/simulator'
+  fullPaths: '/' | '/hardware-assembly' | '/perception' | '/simulator'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/perception' | '/simulator'
-  id: '__root__' | '/' | '/perception' | '/simulator'
+  to: '/' | '/hardware-assembly' | '/perception' | '/simulator'
+  id: '__root__' | '/' | '/hardware-assembly' | '/perception' | '/simulator'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  HardwareAssemblyRoute: typeof HardwareAssemblyRoute
   PerceptionRoute: typeof PerceptionRoute
   SimulatorRoute: typeof SimulatorRoute
 }
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hardware-assembly': {
+      id: '/hardware-assembly'
+      path: '/hardware-assembly'
+      fullPath: '/hardware-assembly'
+      preLoaderRoute: typeof HardwareAssemblyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/perception': {
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  HardwareAssemblyRoute: HardwareAssemblyRoute,
   PerceptionRoute: PerceptionRoute,
   SimulatorRoute: SimulatorRoute,
 }

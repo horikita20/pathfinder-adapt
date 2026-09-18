@@ -238,7 +238,7 @@ export default function TopDownSim() {
             <Stat label="Scenario completion" value={`${stats.completion.toFixed(0)}%`} accent />
             <Stat
               label="Replan latency (measured)"
-              value={stats.latency ? `${stats.latency.toFixed(2)} ms` : "—"}
+              value={stats.latencyP95 ? `${stats.latency.toFixed(2)} ms` : "—"}
               accent
             />
             <Stat

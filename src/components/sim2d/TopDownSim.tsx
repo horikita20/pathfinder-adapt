@@ -236,10 +236,22 @@ export default function TopDownSim() {
         <Panel title="Telemetry">
           <div className="grid grid-cols-2 gap-2">
             <Stat label="Scenario completion" value={`${stats.completion.toFixed(0)}%`} accent />
-            <Stat label="Replanning latency" value={`${stats.latency || 0} ms`} accent />
-            <Stat label="Objects detected" value={String(stats.detected)} />
+            <Stat
+              label="Replan latency (measured)"
+              value={stats.latency ? `${stats.latency.toFixed(2)} ms` : "—"}
+              accent
+            />
+            <Stat
+              label="Replan latency p95"
+              value={stats.latencyP95 ? `${stats.latencyP95.toFixed(2)} ms` : "—"}
+            />
             <Stat label="Replanning events" value={String(stats.replans)} />
+            <Stat label="Objects detected" value={String(stats.detected)} />
             <Stat label="Ego speed" value={`${(stats.speed * 3.6).toFixed(0)} km/h`} />
+            <Stat
+              label="Target speed"
+              value={`${(scenario.egoTargetSpeed * 3.6).toFixed(0)} km/h`}
+            />
             <Stat label="Near-misses" value={String(stats.collisions)} />
           </div>
           <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-sim-soft">
@@ -250,6 +262,10 @@ export default function TopDownSim() {
           </div>
           <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-sim-muted">
             status · {stats.status}
+          </p>
+          <p className="mt-2 border-t border-sim-line pt-2 font-mono text-[10px] leading-relaxed text-sim-muted">
+            Latency is timed with performance.now() around the planner itself — no scripted value.
+            Road users ≈ {scenario.densityPerKm}/km · {scenario.reference}.
           </p>
         </Panel>
 

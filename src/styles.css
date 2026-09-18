@@ -204,6 +204,11 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes hardware-label-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 @layer components {
   .hardware-shell {
     min-height: 100dvh;
@@ -318,7 +323,7 @@
   .hardware-connection.is-wifi .hardware-wire-glow, .hardware-connection.is-wifi .hardware-wire { stroke: var(--hardware-amber); }
   .hardware-connection.is-wifi .hardware-wire { stroke-width: 2.5; stroke-dasharray: 4 9; }
   .hardware-connection.is-entering .hardware-wire-glow, .hardware-connection.is-entering .hardware-wire { stroke-dasharray: 1; animation: hardware-draw 1s cubic-bezier(.2,.75,.25,1) both; }
-  .hardware-wire-label { animation: hardware-copy-in 400ms 700ms ease-out both; }
+  .hardware-wire-label { animation: hardware-label-in 400ms 700ms ease-out both; }
   .hardware-wire-label rect { fill: var(--hardware-board); stroke: color-mix(in oklab, var(--hardware-mint) 35%, transparent); stroke-width: 1; vector-effect: non-scaling-stroke; }
   .is-wifi .hardware-wire-label rect { stroke: color-mix(in oklab, var(--hardware-amber) 55%, transparent); }
   .hardware-wire-label text { fill: var(--hardware-mint); font-size: 13px; font-family: ui-monospace, monospace; letter-spacing: 0; }

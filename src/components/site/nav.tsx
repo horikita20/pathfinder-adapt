@@ -52,6 +52,12 @@ export function SiteNav() {
 
         <div className="hidden items-center gap-2 md:flex">
           <Link
+            to="/hardware-assembly"
+            className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Hardware demo
+          </Link>
+          <Link
             to="/perception"
             className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
@@ -92,6 +98,13 @@ export function SiteNav() {
             ))}
           </ul>
           <div className="mt-4 flex flex-wrap gap-2">
+            <Link
+              to="/hardware-assembly"
+              onClick={() => setOpen(false)}
+              className="inline-flex rounded-md border border-border px-4 py-2 text-sm font-medium text-muted-foreground"
+            >
+              Hardware demo
+            </Link>
             <Link
               to="/perception"
               onClick={() => setOpen(false)}

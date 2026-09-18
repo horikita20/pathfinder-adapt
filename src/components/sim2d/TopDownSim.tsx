@@ -17,7 +17,10 @@ type Stats = {
   completion: number;
   detected: number;
   replans: number;
+  /** measured wall-clock cost of the last re-plan, in milliseconds */
   latency: number;
+  /** measured 95th percentile of every re-plan so far, in milliseconds */
+  latencyP95: number;
   speed: number;
   collisions: number;
   status: "idle" | "running" | "complete" | "braking";
@@ -46,6 +49,7 @@ export default function TopDownSim() {
     detected: 0,
     replans: 0,
     latency: 0,
+    latencyP95: 0,
     speed: 0,
     collisions: 0,
     status: "idle",
@@ -67,6 +71,8 @@ export default function TopDownSim() {
     lastReplanOffset: 0,
     replans: 0,
     latency: 0,
+    latencyP95: 0,
+    latencySamples: [] as number[],
     collisions: 0,
     spawnAcc: {} as Record<number, number>,
     time: 0,
@@ -82,6 +88,8 @@ export default function TopDownSim() {
     w.lastReplanOffset = 0;
     w.replans = 0;
     w.latency = 0;
+    w.latencyP95 = 0;
+    w.latencySamples = [];
     w.collisions = 0;
     w.spawnAcc = {};
     w.time = 0;
@@ -102,6 +110,7 @@ export default function TopDownSim() {
       detected: 0,
       replans: 0,
       latency: 0,
+      latencyP95: 0,
       speed: 0,
       collisions: 0,
       status: "idle",
@@ -164,6 +173,7 @@ export default function TopDownSim() {
           detected,
           replans: w.replans,
           latency: w.latency,
+          latencyP95: w.latencyP95,
           speed: w.ego.speed,
           collisions: w.collisions,
           status: done
@@ -226,10 +236,22 @@ export default function TopDownSim() {
         <Panel title="Telemetry">
           <div className="grid grid-cols-2 gap-2">
             <Stat label="Scenario completion" value={`${stats.completion.toFixed(0)}%`} accent />
-            <Stat label="Replanning latency" value={`${stats.latency || 0} ms`} accent />
-            <Stat label="Objects detected" value={String(stats.detected)} />
+            <Stat
+              label="Replan latency (measured)"
+              value={stats.latencyP95 ? `${stats.latency.toFixed(2)} ms` : "—"}
+              accent
+            />
+            <Stat
+              label="Replan latency p95"
+              value={stats.latencyP95 ? `${stats.latencyP95.toFixed(2)} ms` : "—"}
+            />
             <Stat label="Replanning events" value={String(stats.replans)} />
+            <Stat label="Objects detected" value={String(stats.detected)} />
             <Stat label="Ego speed" value={`${(stats.speed * 3.6).toFixed(0)} km/h`} />
+            <Stat
+              label="Target speed"
+              value={`${(scenario.egoTargetSpeed * 3.6).toFixed(0)} km/h`}
+            />
             <Stat label="Near-misses" value={String(stats.collisions)} />
           </div>
           <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-sim-soft">
@@ -240,6 +262,10 @@ export default function TopDownSim() {
           </div>
           <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-sim-muted">
             status · {stats.status}
+          </p>
+          <p className="mt-2 border-t border-sim-line pt-2 font-mono text-[10px] leading-relaxed text-sim-muted">
+            Latency is timed with performance.now() around the planner itself — no scripted value.
+            Road users ≈ {scenario.densityPerKm}/km · {scenario.reference}.
           </p>
         </Panel>
 
@@ -326,6 +352,8 @@ type World = React.MutableRefObject<{
   lastReplanOffset: number;
   replans: number;
   latency: number;
+  latencyP95: number;
+  latencySamples: number[];
   collisions: number;
   spawnAcc: Record<number, number>;
   time: number;
@@ -397,20 +425,30 @@ function step(w: World, s: Scenario, dt: number) {
   }
   w.obstacles = w.obstacles.filter((o) => o.y > w.ego.y - 25 && o.y < w.ego.y + 400);
 
-  // plan: evaluate lateral offsets
+  // plan: evaluate lateral offsets across the drivable width.
+  // The elapsed time here is the real cost of one re-plan on this machine —
+  // it is measured, never simulated.
+  const planStart = performance.now();
   let best = w.offset;
   let bestCost = Infinity;
-  for (let off = -6; off <= 6; off += 0.5) {
+  const limit = s.roadHalfWidth;
+  for (let off = -limit; off <= limit; off += 0.25) {
     const c = offsetCost(w, s, off);
     if (c < bestCost) {
       bestCost = c;
       best = off;
     }
   }
+  const planMs = performance.now() - planStart;
+  w.latency = planMs;
+  w.latencySamples.push(planMs);
+  if (w.latencySamples.length > 600) w.latencySamples.shift();
+  const sortedMs = [...w.latencySamples].sort((a, b) => a - b);
+  const idx = Math.min(sortedMs.length - 1, Math.floor(sortedMs.length * 0.95));
+  w.latencyP95 = sortedMs[idx] ?? planMs;
   if (Math.abs(best - w.lastReplanOffset) > 0.6) {
     w.lastReplanOffset = best;
     w.replans += 1;
-    w.latency = Math.round(40 + Math.random() * 55);
   }
   w.targetOffset = best;
   w.offset += Math.max(-4 * dt, Math.min(4 * dt, w.targetOffset - w.offset));

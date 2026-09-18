@@ -30,7 +30,7 @@ const SENSOR = {
 };
 
 const CORRIDOR = 1.7; // metres, half-width of the ego safety corridor
-const PX_PER_M = 7.5;
+const PX_PER_M = 10;
 
 function rand([a, b]: [number, number]) {
   return a + Math.random() * (b - a);
@@ -555,8 +555,13 @@ function draw(
   ctx.stroke();
   ctx.lineWidth = 1;
 
-  // obstacles
-  for (const o of w.obstacles) {
+  // obstacles (nearest first so labels go to the most relevant objects)
+  let labels = 0;
+  const sorted = [...w.obstacles].sort(
+    (a, b) =>
+      Math.hypot(a.x - w.ego.x, a.y - w.ego.y) - Math.hypot(b.x - w.ego.x, b.y - w.ego.y),
+  );
+  for (const o of sorted) {
     const m = KIND_META[o.kind];
     const px = toX(o.x);
     const py = toY(o.y);
@@ -583,9 +588,12 @@ function draw(
       ctx.setLineDash([3, 3]);
       ctx.strokeRect(px - bw / 2 - pad, py - bl / 2 - pad, bw + pad * 2, bl + pad * 2);
       ctx.setLineDash([]);
-      ctx.fillStyle = "#22d3ee";
-      ctx.font = "10px ui-monospace, monospace";
-      ctx.fillText(`${m.label} ${dist.toFixed(0)}m`, px + bw / 2 + 7, py - bl / 2 - 2);
+      if (labels < 8) {
+        labels += 1;
+        ctx.fillStyle = "#22d3ee";
+        ctx.font = "10px ui-monospace, monospace";
+        ctx.fillText(`${m.label} ${dist.toFixed(0)}m`, px + bw / 2 + 7, py - bl / 2 - 2);
+      }
     }
   }
 

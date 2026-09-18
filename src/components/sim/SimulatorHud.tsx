@@ -268,7 +268,7 @@ export function SimulatorHud(props: HudProps) {
               onPointerDown={() => props.onTouch(key, true)}
               onPointerUp={() => props.onTouch(key, false)}
               onPointerLeave={() => props.onTouch(key, false)}
-              className="pointer-events-auto h-12 w-12 rounded-full border border-white/15 bg-[#0d1216]/85 text-white backdrop-blur"
+              className="pointer-events-auto h-12 w-12 rounded-full border border-sim-line bg-sim-panel text-sim-ink shadow-sm backdrop-blur"
             >
               {glyph}
             </button>

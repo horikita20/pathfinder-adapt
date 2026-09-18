@@ -180,9 +180,9 @@ export default function HardwareAssembly() {
               <Connection
                 visible={step >= 3}
                 current={step === 3}
-                path="M462 360 L368 360 L368 334 L310 334"
-                labelX={386}
-                labelY={395}
+                path="M462 392 L392 392 L392 348 L310 348"
+                labelX={360}
+                labelY={420}
                 labels={["UART TX/RX (2 Mbps)"]}
               />
               <Connection

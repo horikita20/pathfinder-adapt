@@ -216,6 +216,7 @@
 @layer components {
   .hardware-shell {
     min-height: 100dvh;
+    height: 100dvh;
     overflow: hidden;
     background: var(--hardware-board);
     color: var(--hardware-ink);
@@ -372,8 +373,22 @@
     .hardware-key-hint { display: none; }
   }
 
+  @media (min-width: 641px) and (max-height: 700px) {
+    .hardware-header { min-height: 54px; padding-block: 8px; }
+    .hardware-brand > a { width: 36px; height: 36px; }
+    .hardware-brand strong { font-size: 15px; }
+    .hardware-stage { gap: 7px; padding-block: 8px; }
+    .hardware-copy { grid-template-columns: minmax(220px, .8fr) 1.6fr; }
+    .hardware-copy h1 { font-size: 21px; }
+    .hardware-copy p { max-width: 520px; font-size: 9px; line-height: 1.45; }
+    .hardware-board { width: min(100%, calc((100dvh - 190px) * 12 / 7)); }
+    .hardware-controls { min-height: 66px; padding-block: 8px; }
+    .hardware-progress-count { font-size: 21px; }
+    .hardware-actions button { height: 38px; }
+  }
+
   @media (max-width: 640px) {
-    .hardware-shell { overflow: auto; }
+    .hardware-shell { height: auto; overflow: auto; }
     .hardware-header { min-height: 60px; }
     .hardware-system-status { display: none; }
     .hardware-stage { padding-block: 14px; }

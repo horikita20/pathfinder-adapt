@@ -440,10 +440,10 @@ function step(w: World, s: Scenario, dt: number) {
     }
   }
 
-  w.ego.x += Math.max(-3 * dt, Math.min(3 * dt, w.offset * 0.9 - 0 ));
+  w.ego.x += Math.max(-3.5 * dt, Math.min(3.5 * dt, w.offset));
   w.ego.x = Math.max(-s.roadHalfWidth + 1, Math.min(s.roadHalfWidth - 1, w.ego.x));
   w.ego.y = Math.min(s.goalDistance, w.ego.y + w.ego.speed * dt);
-  w.ego.heading = Math.atan2(w.targetOffset, 8);
+  w.ego.heading = Math.atan2(w.targetOffset, 16);
 
   // detection flags
   for (const o of w.obstacles) o.detected = false;

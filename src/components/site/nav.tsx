@@ -50,12 +50,20 @@ export function SiteNav() {
           ))}
         </ul>
 
-        <Link
-          to="/simulator"
-          className="hidden rounded-md border border-primary/45 px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/10 md:inline-flex"
-        >
-          Launch simulator
-        </Link>
+        <div className="hidden items-center gap-2 md:flex">
+          <Link
+            to="/perception"
+            className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Perception demo
+          </Link>
+          <Link
+            to="/simulator"
+            className="rounded-md border border-primary/45 px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/10"
+          >
+            Launch simulator
+          </Link>
+        </div>
 
         <button
           type="button"
@@ -83,13 +91,22 @@ export function SiteNav() {
               </li>
             ))}
           </ul>
-          <Link
-            to="/simulator"
-            onClick={() => setOpen(false)}
-            className="mt-4 inline-flex rounded-md border border-primary/45 px-4 py-2 text-sm font-medium text-primary"
-          >
-            Launch simulator
-          </Link>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <Link
+              to="/perception"
+              onClick={() => setOpen(false)}
+              className="inline-flex rounded-md border border-border px-4 py-2 text-sm font-medium text-muted-foreground"
+            >
+              Perception demo
+            </Link>
+            <Link
+              to="/simulator"
+              onClick={() => setOpen(false)}
+              className="inline-flex rounded-md border border-primary/45 px-4 py-2 text-sm font-medium text-primary"
+            >
+              Launch simulator
+            </Link>
+          </div>
         </div>
       )}
     </header>

@@ -440,15 +440,15 @@ function step(w: World, s: Scenario, dt: number) {
     }
   }
   const planMs = performance.now() - planStart;
+  w.latency = planMs;
+  w.latencySamples.push(planMs);
+  if (w.latencySamples.length > 600) w.latencySamples.shift();
+  const sortedMs = [...w.latencySamples].sort((a, b) => a - b);
+  const idx = Math.min(sortedMs.length - 1, Math.floor(sortedMs.length * 0.95));
+  w.latencyP95 = sortedMs[idx] ?? planMs;
   if (Math.abs(best - w.lastReplanOffset) > 0.6) {
     w.lastReplanOffset = best;
     w.replans += 1;
-    w.latency = planMs;
-    w.latencySamples.push(planMs);
-    if (w.latencySamples.length > 400) w.latencySamples.shift();
-    const sortedMs = [...w.latencySamples].sort((a, b) => a - b);
-    const idx = Math.min(sortedMs.length - 1, Math.floor(sortedMs.length * 0.95));
-    w.latencyP95 = sortedMs[idx] ?? planMs;
   }
   w.targetOffset = best;
   w.offset += Math.max(-4 * dt, Math.min(4 * dt, w.targetOffset - w.offset));

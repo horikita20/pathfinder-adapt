@@ -38,7 +38,7 @@ function rand([a, b]: [number, number]) {
 
 export default function TopDownSim() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [scenarioId, setScenarioId] = useState(SCENARIOS[0].id);
+  const [scenarioId, setScenarioId] = useState(SCENARIOS[0]!.id);
   const [sensors, setSensors] = useState<Sensors>({ camera: true, radar: true, lidar: true });
   const [running, setRunning] = useState(false);
   const [stats, setStats] = useState<Stats>({
@@ -51,7 +51,7 @@ export default function TopDownSim() {
     status: "idle",
   });
 
-  const scenario = SCENARIOS.find((s) => s.id === scenarioId) ?? SCENARIOS[0];
+  const scenario = SCENARIOS.find((s) => s.id === scenarioId) ?? SCENARIOS[0]!;
   const scenarioRef = useRef<Scenario>(scenario);
   const sensorsRef = useRef(sensors);
   const runningRef = useRef(running);
@@ -86,7 +86,7 @@ export default function TopDownSim() {
     w.spawnAcc = {};
     w.time = 0;
     for (let i = 0; i < s.initial; i++) {
-      const rule = s.rules[Math.floor(Math.random() * s.rules.length)];
+      const rule = s.rules[Math.floor(Math.random() * s.rules.length)]!;
       w.obstacles.push({
         id: w.nextId++,
         kind: rule.kind,

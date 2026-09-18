@@ -70,7 +70,7 @@ export function Problem() {
         </div>
 
         <Reveal delay={120} className="lg:pt-24">
-          <div className="rounded-2xl border border-warning/25 bg-background/60 p-10 text-center">
+          <div className="rounded-lg border border-warning/25 bg-background p-10 text-center shadow-[var(--shadow-card)]">
             <p className="text-5xl font-bold tracking-tight text-warning lg:text-6xl">1.4M+</p>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               Road accident casualties reported in India each year — the highest burden in the
@@ -142,7 +142,7 @@ export function Solution() {
         <div className="mt-14 grid gap-5 md:grid-cols-2">
           {features.map((f, i) => (
             <Reveal key={f.title} delay={i * 80}>
-              <article className="h-full rounded-2xl border border-border bg-card/70 p-8 shadow-[var(--shadow-card)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/45">
+              <article className="h-full rounded-lg border border-border bg-card p-8 shadow-[var(--shadow-card)] transition-colors duration-300 hover:border-primary/45">
                 <f.icon className="text-primary" size={30} strokeWidth={1.5} />
                 <h3 className="mt-6 text-xl font-semibold">{f.title}</h3>
                 <p className="mt-3 leading-relaxed text-muted-foreground">{f.body}</p>
@@ -208,7 +208,7 @@ export function Market() {
           </Reveal>
 
           <Reveal delay={100}>
-            <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border">
+            <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-border bg-border">
               {metrics.map((m) => (
                 <div key={m.label} className="bg-background p-7">
                   <dt className="text-3xl font-bold tracking-tight text-warning lg:text-4xl">
@@ -304,7 +304,7 @@ export function BusinessModel() {
           {plans.map((p, i) => (
             <Reveal key={p.title} delay={i * 90}>
               <article
-                className={`flex h-full flex-col rounded-2xl border bg-background/60 p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-glow)] ${
+                className={`flex h-full flex-col rounded-lg border bg-background p-8 shadow-[var(--shadow-card)] transition-colors duration-300 ${
                   p.highlight ? "border-primary/45" : "border-border hover:border-primary/40"
                 }`}
               >
@@ -367,7 +367,7 @@ export function Team() {
         <div className="mx-auto mt-14 max-w-2xl">
           {team.map((member, i) => (
             <Reveal key={member.role} delay={i * 80}>
-              <article className="flex h-full items-start gap-6 rounded-2xl border border-border bg-background/50 p-7 transition-colors hover:border-primary/40">
+              <article className="flex h-full items-start gap-6 rounded-lg border border-border bg-background p-7 shadow-[var(--shadow-card)] transition-colors hover:border-primary/40">
                 <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-primary/45 bg-muted text-lg font-semibold text-primary">
                   {member.name
                     .split(" ")

@@ -10,13 +10,20 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AutonomousDrivingIndiaRouteImport } from './routes/autonomous-driving-india'
 import { Route as HardwareAssemblyRouteImport } from './routes/hardware-assembly'
 import { Route as PerceptionRouteImport } from './routes/perception'
 import { Route as SimulatorRouteImport } from './routes/simulator'
+import { Route as TeamRouteImport } from './routes/team'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AutonomousDrivingIndiaRoute = AutonomousDrivingIndiaRouteImport.update({
+  id: '/autonomous-driving-india',
+  path: '/autonomous-driving-india',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HardwareAssemblyRoute = HardwareAssemblyRouteImport.update({
@@ -34,39 +41,71 @@ const SimulatorRoute = SimulatorRouteImport.update({
   path: '/simulator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TeamRoute = TeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/autonomous-driving-india': typeof AutonomousDrivingIndiaRoute
   '/hardware-assembly': typeof HardwareAssemblyRoute
   '/perception': typeof PerceptionRoute
   '/simulator': typeof SimulatorRoute
+  '/team': typeof TeamRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/autonomous-driving-india': typeof AutonomousDrivingIndiaRoute
   '/hardware-assembly': typeof HardwareAssemblyRoute
   '/perception': typeof PerceptionRoute
   '/simulator': typeof SimulatorRoute
+  '/team': typeof TeamRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/autonomous-driving-india': typeof AutonomousDrivingIndiaRoute
   '/hardware-assembly': typeof HardwareAssemblyRoute
   '/perception': typeof PerceptionRoute
   '/simulator': typeof SimulatorRoute
+  '/team': typeof TeamRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/hardware-assembly' | '/perception' | '/simulator'
+  fullPaths:
+    | '/'
+    | '/autonomous-driving-india'
+    | '/hardware-assembly'
+    | '/perception'
+    | '/simulator'
+    | '/team'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/hardware-assembly' | '/perception' | '/simulator'
-  id: '__root__' | '/' | '/hardware-assembly' | '/perception' | '/simulator'
+  to:
+    | '/'
+    | '/autonomous-driving-india'
+    | '/hardware-assembly'
+    | '/perception'
+    | '/simulator'
+    | '/team'
+  id:
+    | '__root__'
+    | '/'
+    | '/autonomous-driving-india'
+    | '/hardware-assembly'
+    | '/perception'
+    | '/simulator'
+    | '/team'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AutonomousDrivingIndiaRoute: typeof AutonomousDrivingIndiaRoute
   HardwareAssemblyRoute: typeof HardwareAssemblyRoute
   PerceptionRoute: typeof PerceptionRoute
   SimulatorRoute: typeof SimulatorRoute
+  TeamRoute: typeof TeamRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -76,6 +115,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/autonomous-driving-india': {
+      id: '/autonomous-driving-india'
+      path: '/autonomous-driving-india'
+      fullPath: '/autonomous-driving-india'
+      preLoaderRoute: typeof AutonomousDrivingIndiaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/hardware-assembly': {
@@ -99,14 +145,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SimulatorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/team': {
+      id: '/team'
+      path: '/team'
+      fullPath: '/team'
+      preLoaderRoute: typeof TeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AutonomousDrivingIndiaRoute: AutonomousDrivingIndiaRoute,
   HardwareAssemblyRoute: HardwareAssemblyRoute,
   PerceptionRoute: PerceptionRoute,
   SimulatorRoute: SimulatorRoute,
+  TeamRoute: TeamRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

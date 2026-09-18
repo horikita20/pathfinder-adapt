@@ -91,13 +91,22 @@ export function SiteNav() {
               </li>
             ))}
           </ul>
-          <Link
-            to="/simulator"
-            onClick={() => setOpen(false)}
-            className="mt-4 inline-flex rounded-md border border-primary/45 px-4 py-2 text-sm font-medium text-primary"
-          >
-            Launch simulator
-          </Link>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <Link
+              to="/perception"
+              onClick={() => setOpen(false)}
+              className="inline-flex rounded-md border border-border px-4 py-2 text-sm font-medium text-muted-foreground"
+            >
+              Perception demo
+            </Link>
+            <Link
+              to="/simulator"
+              onClick={() => setOpen(false)}
+              className="inline-flex rounded-md border border-primary/45 px-4 py-2 text-sm font-medium text-primary"
+            >
+              Launch simulator
+            </Link>
+          </div>
         </div>
       )}
     </header>

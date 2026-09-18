@@ -50,12 +50,20 @@ export function SiteNav() {
           ))}
         </ul>
 
-        <Link
-          to="/simulator"
-          className="hidden rounded-md border border-primary/45 px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/10 md:inline-flex"
-        >
-          Launch simulator
-        </Link>
+        <div className="hidden items-center gap-2 md:flex">
+          <Link
+            to="/perception"
+            className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Perception demo
+          </Link>
+          <Link
+            to="/simulator"
+            className="rounded-md border border-primary/45 px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/10"
+          >
+            Launch simulator
+          </Link>
+        </div>
 
         <button
           type="button"

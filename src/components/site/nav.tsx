@@ -33,7 +33,7 @@ export function SiteNav() {
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
         <a href="#home" className="flex items-baseline gap-1 text-lg font-bold tracking-tight">
-          SafeAutonomy India
+          SAFEMARG
           <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden />
         </a>
 

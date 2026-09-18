@@ -6,13 +6,13 @@ const TopDownSim = lazy(() => import("@/components/sim2d/TopDownSim"));
 export const Route = createFileRoute("/perception")({
   head: () => ({
     meta: [
-      { title: "Perception & Planning Demo | SafeAutonomy India" },
+      { title: "Perception & Planning Demo | SAFEMARG" },
       {
         name: "description",
         content:
           "Live top-down simulation of camera, radar and LiDAR perception with adaptive path replanning across five unstructured Indian road scenarios.",
       },
-      { property: "og:title", content: "Perception & Planning Demo | SafeAutonomy India" },
+      { property: "og:title", content: "Perception & Planning Demo | SAFEMARG" },
       {
         property: "og:description",
         content:
@@ -27,19 +27,19 @@ export const Route = createFileRoute("/perception")({
 
 function Loading() {
   return (
-    <div className="flex h-[100dvh] w-full flex-col items-center justify-center gap-4 bg-[#070b0f]">
-      <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#22d3ee] border-t-transparent" />
-      <p className="font-mono text-xs uppercase tracking-widest text-[#6b7681]">Initialising simulation</p>
+    <div className="flex h-[100dvh] w-full flex-col items-center justify-center gap-4 bg-sim-page">
+      <div className="h-8 w-8 animate-spin rounded-full border-2 border-sim-cyan border-t-transparent" />
+      <p className="font-mono text-xs uppercase tracking-widest text-sim-muted">Initialising simulation</p>
     </div>
   );
 }
 
 function PerceptionPage() {
   return (
-    <main className="relative bg-[#070b0f]">
+    <main className="relative bg-sim-page">
       <Link
         to="/"
-        className="absolute bottom-4 left-4 z-20 rounded-full border border-white/10 bg-black/50 px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest text-[#9aa4ac] backdrop-blur hover:text-white"
+        className="absolute bottom-4 left-4 z-20 rounded-full border border-sim-line bg-sim-panel px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest text-sim-muted shadow-sm backdrop-blur hover:text-sim-ink"
       >
         ← Back to site
       </Link>

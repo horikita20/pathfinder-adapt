@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * SafeAutonomy India design system.
+ * SAFEMARG design system.
  * Dark charcoal base, cyan primary, orange (problem), green (traction).
  * All colors are oklch tokens — never hardcode colors in components.
  */
@@ -59,6 +59,16 @@
   --color-hardware-dim: var(--hardware-dim);
   --color-hardware-ink: var(--hardware-ink);
   --color-hardware-soft: var(--hardware-soft);
+  --color-sim-page: var(--sim-page);
+  --color-sim-panel: var(--sim-panel);
+  --color-sim-soft: var(--sim-soft);
+  --color-sim-ink: var(--sim-ink);
+  --color-sim-muted: var(--sim-muted);
+  --color-sim-line: var(--sim-line);
+  --color-sim-cyan: var(--sim-cyan);
+  --color-sim-green: var(--sim-green);
+  --color-sim-amber: var(--sim-amber);
+  --color-sim-red: var(--sim-red);
 }
 
 :root {
@@ -120,6 +130,17 @@
   --hardware-dim: oklch(0.49 0.018 225);
   --hardware-ink: oklch(0.23 0.025 235);
   --hardware-soft: oklch(0.94 0.007 180);
+
+  --sim-page: oklch(0.965 0.006 235);
+  --sim-panel: oklch(1 0 0 / 94%);
+  --sim-soft: oklch(0.94 0.008 235);
+  --sim-ink: oklch(0.24 0.025 245);
+  --sim-muted: oklch(0.52 0.018 240);
+  --sim-line: oklch(0.85 0.012 235);
+  --sim-cyan: oklch(0.62 0.15 220);
+  --sim-green: oklch(0.58 0.15 158);
+  --sim-amber: oklch(0.67 0.16 70);
+  --sim-red: oklch(0.58 0.2 27);
 }
 
 .dark {

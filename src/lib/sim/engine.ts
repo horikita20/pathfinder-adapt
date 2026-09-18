@@ -1,5 +1,5 @@
 /**
- * SafeAutonomy India — driving simulation engine.
+ * SAFEMARG — driving simulation engine.
  * Pure TypeScript, framework agnostic. The 3D layer reads this state every frame.
  */
 

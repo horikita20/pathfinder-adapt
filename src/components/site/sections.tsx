@@ -2,7 +2,6 @@ import {
   AlertTriangle,
   Brain,
   Bus,
-  Cpu,
   Globe2,
   Map,
   Radar,
@@ -267,7 +266,7 @@ const plans = [
   {
     title: "Validation services",
     price: "$100K–2M / project",
-    body: "Custom scenario design and validation for government bodies, AICTE, MathWorks and OEM partners.",
+    body: "Custom scenario design and validation for government bodies, universities and OEM teams.",
     points: [
       "Bespoke scenario creation",
       "Regulatory compliance testing",
@@ -345,23 +344,8 @@ export function BusinessModel() {
 const team = [
   {
     name: "Monika Sharma",
-    role: "CEO & Co-founder",
-    bio: "Autonomous systems and simulation — 5+ years building perception and planning stacks.",
-  },
-  {
-    name: "Co-founder name",
-    role: "CTO & Co-founder",
-    bio: "Machine learning and path planning; research background in motion prediction.",
-  },
-  {
-    name: "Product lead name",
-    role: "Head of Product",
-    bio: "Simulation tooling and product strategy for engineering customers.",
-  },
-  {
-    name: "Partnerships lead name",
-    role: "Head of Partnerships",
-    bio: "OEM and Tier-1 relationships across the Indian commercial vehicle ecosystem.",
+    role: "Founder & CEO",
+    bio: "Building SAFEMARG's simulation-led perception and adaptive path-planning platform for Indian road conditions.",
   },
 ];
 
@@ -380,7 +364,7 @@ export function Team() {
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2">
+        <div className="mx-auto mt-14 max-w-2xl">
           {team.map((member, i) => (
             <Reveal key={member.role} delay={i * 80}>
               <article className="flex h-full items-start gap-6 rounded-2xl border border-border bg-background/50 p-7 transition-colors hover:border-primary/40">
@@ -401,19 +385,6 @@ export function Team() {
           ))}
         </div>
 
-        <Reveal delay={100}>
-          <p className="mt-12 text-center text-sm text-muted-foreground">
-            <span className="font-semibold text-foreground">Advisors:</span> autonomous systems lab
-            (IIT) · ex-MathWorks India leadership · serial mobility entrepreneur
-          </p>
-        </Reveal>
-
-        <Reveal delay={140}>
-          <p className="mx-auto mt-4 flex max-w-2xl items-center justify-center gap-2 text-center text-xs text-muted-foreground/70">
-            <Cpu size={14} /> Names and affiliations marked as placeholders are yet to be confirmed
-            — send us the real details and we will swap them in.
-          </p>
-        </Reveal>
       </div>
     </section>
   );

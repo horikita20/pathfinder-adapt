@@ -2,7 +2,6 @@ import {
   AlertTriangle,
   Brain,
   Bus,
-  Cpu,
   Globe2,
   Map,
   Radar,
@@ -71,7 +70,7 @@ export function Problem() {
         </div>
 
         <Reveal delay={120} className="lg:pt-24">
-          <div className="rounded-2xl border border-warning/25 bg-background/60 p-10 text-center">
+          <div className="rounded-lg border border-warning/25 bg-background p-10 text-center shadow-[var(--shadow-card)]">
             <p className="text-5xl font-bold tracking-tight text-warning lg:text-6xl">1.4M+</p>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               Road accident casualties reported in India each year — the highest burden in the
@@ -143,7 +142,7 @@ export function Solution() {
         <div className="mt-14 grid gap-5 md:grid-cols-2">
           {features.map((f, i) => (
             <Reveal key={f.title} delay={i * 80}>
-              <article className="h-full rounded-2xl border border-border bg-card/70 p-8 shadow-[var(--shadow-card)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/45">
+              <article className="h-full rounded-lg border border-border bg-card p-8 shadow-[var(--shadow-card)] transition-colors duration-300 hover:border-primary/45">
                 <f.icon className="text-primary" size={30} strokeWidth={1.5} />
                 <h3 className="mt-6 text-xl font-semibold">{f.title}</h3>
                 <p className="mt-3 leading-relaxed text-muted-foreground">{f.body}</p>
@@ -209,7 +208,7 @@ export function Market() {
           </Reveal>
 
           <Reveal delay={100}>
-            <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border">
+            <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-border bg-border">
               {metrics.map((m) => (
                 <div key={m.label} className="bg-background p-7">
                   <dt className="text-3xl font-bold tracking-tight text-warning lg:text-4xl">
@@ -267,7 +266,7 @@ const plans = [
   {
     title: "Validation services",
     price: "$100K–2M / project",
-    body: "Custom scenario design and validation for government bodies, AICTE, MathWorks and OEM partners.",
+    body: "Custom scenario design and validation for government bodies, universities and OEM teams.",
     points: [
       "Bespoke scenario creation",
       "Regulatory compliance testing",
@@ -305,7 +304,7 @@ export function BusinessModel() {
           {plans.map((p, i) => (
             <Reveal key={p.title} delay={i * 90}>
               <article
-                className={`flex h-full flex-col rounded-2xl border bg-background/60 p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-glow)] ${
+                className={`flex h-full flex-col rounded-lg border bg-background p-8 shadow-[var(--shadow-card)] transition-colors duration-300 ${
                   p.highlight ? "border-primary/45" : "border-border hover:border-primary/40"
                 }`}
               >
@@ -345,23 +344,8 @@ export function BusinessModel() {
 const team = [
   {
     name: "Monika Sharma",
-    role: "CEO & Co-founder",
-    bio: "Autonomous systems and simulation — 5+ years building perception and planning stacks.",
-  },
-  {
-    name: "Co-founder name",
-    role: "CTO & Co-founder",
-    bio: "Machine learning and path planning; research background in motion prediction.",
-  },
-  {
-    name: "Product lead name",
-    role: "Head of Product",
-    bio: "Simulation tooling and product strategy for engineering customers.",
-  },
-  {
-    name: "Partnerships lead name",
-    role: "Head of Partnerships",
-    bio: "OEM and Tier-1 relationships across the Indian commercial vehicle ecosystem.",
+    role: "Founder & CEO",
+    bio: "Building SAFEMARG's simulation-led perception and adaptive path-planning platform for Indian road conditions.",
   },
 ];
 
@@ -380,10 +364,10 @@ export function Team() {
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2">
+        <div className="mx-auto mt-14 max-w-2xl">
           {team.map((member, i) => (
             <Reveal key={member.role} delay={i * 80}>
-              <article className="flex h-full items-start gap-6 rounded-2xl border border-border bg-background/50 p-7 transition-colors hover:border-primary/40">
+              <article className="flex h-full items-start gap-6 rounded-lg border border-border bg-background p-7 shadow-[var(--shadow-card)] transition-colors hover:border-primary/40">
                 <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-primary/45 bg-muted text-lg font-semibold text-primary">
                   {member.name
                     .split(" ")
@@ -401,19 +385,6 @@ export function Team() {
           ))}
         </div>
 
-        <Reveal delay={100}>
-          <p className="mt-12 text-center text-sm text-muted-foreground">
-            <span className="font-semibold text-foreground">Advisors:</span> autonomous systems lab
-            (IIT) · ex-MathWorks India leadership · serial mobility entrepreneur
-          </p>
-        </Reveal>
-
-        <Reveal delay={140}>
-          <p className="mx-auto mt-4 flex max-w-2xl items-center justify-center gap-2 text-center text-xs text-muted-foreground/70">
-            <Cpu size={14} /> Names and affiliations marked as placeholders are yet to be confirmed
-            — send us the real details and we will swap them in.
-          </p>
-        </Reveal>
       </div>
     </section>
   );

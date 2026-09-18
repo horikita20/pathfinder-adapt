@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { Github, Linkedin, Mail, MapPin, Phone, Twitter } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Reveal } from "./reveal";
@@ -10,13 +10,6 @@ const schema = z.object({
   email: z.string().trim().email("Please use a valid email address").max(255),
   message: z.string().trim().min(1, "Please add a short message").max(1000),
 });
-
-const socials = [
-  { icon: Linkedin, href: "https://www.linkedin.com", label: "LinkedIn" },
-  { icon: Twitter, href: "https://x.com", label: "X" },
-  { icon: Github, href: "https://github.com", label: "GitHub" },
-  { icon: Mail, href: "mailto:founders@safeautonomy.in", label: "Email" },
-];
 
 export function Contact() {
   const [submitting, setSubmitting] = useState(false);
@@ -53,8 +46,8 @@ export function Contact() {
             Ready to transform Indian road safety?
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">
-            We are raising $2M seed to scale our simulation platform and deploy ADAS in 10,000+
-            commercial vehicles by 2028.
+            Talk to us about simulation pilots, vehicle testing and adaptive path planning for
+            complex Indian road conditions.
           </p>
         </Reveal>
 
@@ -85,33 +78,12 @@ export function Contact() {
               </a>
             </li>
             <li className="flex items-center gap-2">
-              <Phone size={15} /> +91 00000 00000
-            </li>
-            <li className="flex items-center gap-2">
               <MapPin size={15} /> Lucknow, Uttar Pradesh, India
             </li>
           </ul>
         </Reveal>
 
         <Reveal delay={180}>
-          <ul className="mt-7 flex items-center justify-center gap-5">
-            {socials.map((s) => (
-              <li key={s.label}>
-                <a
-                  href={s.href}
-                  aria-label={s.label}
-                  target={s.href.startsWith("http") ? "_blank" : undefined}
-                  rel="noreferrer"
-                  className="inline-flex text-primary transition-transform duration-200 hover:scale-110"
-                >
-                  <s.icon size={22} />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
-
-        <Reveal delay={220}>
           <form onSubmit={onSubmit} className="mx-auto mt-14 max-w-lg space-y-3 text-left">
             <label className="sr-only" htmlFor="name">
               Your name

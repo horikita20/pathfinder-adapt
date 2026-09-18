@@ -2,23 +2,19 @@ import { ArrowDown, Mail } from "lucide-react";
 import { Reveal } from "./reveal";
 import { openEmail, scrollToSection } from "@/lib/contact-actions";
 
-const badges = ["SIH 2026 Finalist", "MathWorks Partner", "IIT Partner College", "IEEE Member"];
+const proofPoints = ["5 Indian road scenarios", "<100ms replanning target", "Simulation-first validation"];
 
 export function Hero() {
   return (
     <section
       id="home"
-      className="hex-grid shell-gradient relative flex min-h-screen items-center overflow-hidden px-6 pb-16 pt-28 lg:px-10"
+      className="hex-grid shell-gradient relative flex min-h-[88svh] items-center overflow-hidden px-6 pb-16 pt-28 lg:px-10"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-40 top-10 h-[34rem] w-[34rem] rounded-full bg-primary/10 blur-[140px]"
-      />
       <div className="mx-auto w-full max-w-4xl text-center">
         <Reveal>
           <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-1.5 text-xs text-muted-foreground">
             <span className="h-1.5 w-1.5 rounded-full bg-success" />
-            Pre-seed · raising $2M
+            Built for complex Indian roads
           </span>
         </Reveal>
 
@@ -55,9 +51,12 @@ export function Hero() {
         </Reveal>
 
         <Reveal delay={320}>
-          <ul className="mt-16 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs uppercase tracking-[0.18em] text-muted-foreground/70">
-            {badges.map((badge) => (
-              <li key={badge}>{badge}</li>
+          <ul className="mt-16 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs font-medium text-muted-foreground">
+            {proofPoints.map((point) => (
+              <li key={point} className="flex items-center gap-2">
+                <span className="h-1 w-1 rounded-full bg-primary" aria-hidden />
+                {point}
+              </li>
             ))}
           </ul>
         </Reveal>

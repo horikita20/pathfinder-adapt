@@ -6,7 +6,7 @@ import { Contact, Footer } from "@/components/site/contact";
 
 const title = "SAFEMARG | Adaptive Path Planning for Indian Roads";
 const description =
-  "Simulation-based autonomous driving and ADAS for unstructured Indian roads. SIH 2026 problem statement SIH26037. Raising $2M seed.";
+  "SAFEMARG develops simulation-based autonomous driving and ADAS technology for complex, unstructured Indian roads.";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -17,7 +17,7 @@ export const Route = createFileRoute("/")({
       {
         name: "keywords",
         content:
-          "autonomous vehicles India, ADAS, path planning, simulation, SIH 2026, MathWorks, Indian roads",
+          "SAFEMARG, autonomous vehicles India, ADAS, path planning, simulation, Indian roads",
       },
       { property: "og:title", content: title },
       { property: "og:description", content: description },

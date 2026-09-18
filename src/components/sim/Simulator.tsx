@@ -86,7 +86,7 @@ export default function Simulator() {
   }, []);
 
   return (
-    <div className="relative h-[100dvh] w-full overflow-hidden bg-[#0d1216]">
+    <div className="relative h-[100dvh] w-full overflow-hidden bg-sim-page">
       {cameraMode === "inside" ? (
         <CameraFeed key={`feed-${scenarioId}-${version}`} world={world} inputRef={inputRef} onTick={onTick} />
       ) : (
@@ -117,7 +117,7 @@ export default function Simulator() {
       />
       {!running && (
         <div className="pointer-events-none absolute inset-x-0 bottom-24 flex justify-center">
-          <p className="rounded-full border border-white/10 bg-[#0d1216]/85 px-4 py-1.5 text-[11px] text-[#9aa4ac] backdrop-blur">
+          <p className="rounded-full border border-sim-line bg-sim-panel px-4 py-1.5 text-[11px] text-sim-muted shadow-sm backdrop-blur">
             Press Start · drag to orbit · scroll to zoom · keys 1/2/3 switch camera
           </p>
         </div>

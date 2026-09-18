@@ -4,7 +4,7 @@ import { Hero } from "@/components/site/hero";
 import { Problem, Solution, Market, BusinessModel, Team } from "@/components/site/sections";
 import { Contact, Footer } from "@/components/site/contact";
 
-const title = "SafeAutonomy India | Adaptive Path Planning for Indian Roads";
+const title = "SAFEMARG | Adaptive Path Planning for Indian Roads";
 const description =
   "Simulation-based autonomous driving and ADAS for unstructured Indian roads. SIH 2026 problem statement SIH26037. Raising $2M seed.";
 
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
-          name: "SafeAutonomy India",
+          name: "SAFEMARG",
           description,
           email: "founders@safeautonomy.in",
           address: {

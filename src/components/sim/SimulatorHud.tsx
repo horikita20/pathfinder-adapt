@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 import type { CameraMode, DriveMode, Metrics, Scenario, SimEvent } from "@/lib/sim/engine";
 import { SCENARIOS } from "@/lib/sim/engine";
 
-const RISK_TEXT = { low: "text-[#00ff88]", medium: "text-[#ff9f1c]", high: "text-[#ff3b30]" } as const;
+const RISK_TEXT = { low: "text-sim-green", medium: "text-sim-amber", high: "text-sim-red" } as const;
 
 const CAMERAS: { id: CameraMode; label: string; icon: typeof Eye }[] = [
   { id: "inside", label: "Inside", icon: Eye },
@@ -26,7 +26,7 @@ function Panel({ className, children }: { className?: string; children: React.Re
   return (
     <div
       className={cn(
-        "pointer-events-auto rounded-md border border-white/10 bg-[#0d1216]/82 p-3 text-xs text-[#d7dde2] backdrop-blur-md",
+        "pointer-events-auto rounded-md border border-sim-line bg-sim-panel p-3 text-xs text-sim-ink shadow-sm backdrop-blur-md",
         className,
       )}
     >
@@ -38,8 +38,8 @@ function Panel({ className, children }: { className?: string; children: React.Re
 function Row({ label, value, accent }: { label: string; value: React.ReactNode; accent?: string }) {
   return (
     <div className="flex items-baseline justify-between gap-4 py-0.5">
-      <span className="text-[10px] uppercase tracking-wider text-[#8b959d]">{label}</span>
-      <span className={cn("font-mono text-[12px] text-white", accent)}>{value}</span>
+      <span className="text-[10px] uppercase tracking-wider text-sim-muted">{label}</span>
+      <span className={cn("font-mono text-[12px] text-sim-ink", accent)}>{value}</span>
     </div>
   );
 }
@@ -69,9 +69,9 @@ export function SimulatorHud(props: HudProps) {
       {/* top bar */}
       <div className="absolute inset-x-0 top-0 flex flex-wrap items-center gap-2 p-3">
         <Panel className="flex items-center gap-2 py-2">
-          <span className="h-2 w-2 rounded-full bg-[#00d9ff]" />
-          <span className="text-[11px] font-semibold tracking-wide text-white">SafeAutonomy India</span>
-          <span className="hidden text-[10px] text-[#8b959d] sm:inline">SIMULATION ONLY</span>
+          <span className="h-2 w-2 rounded-full bg-sim-cyan" />
+          <span className="text-[11px] font-semibold tracking-wide text-sim-ink">SAFEMARG</span>
+          <span className="hidden text-[10px] text-sim-muted sm:inline">SIMULATION ONLY</span>
         </Panel>
 
         <Panel className="flex items-center gap-1 p-1">
@@ -82,7 +82,7 @@ export function SimulatorHud(props: HudProps) {
               onClick={() => props.onCamera(c.id)}
               className={cn(
                 "flex items-center gap-1.5 rounded px-2.5 py-1.5 text-[11px] transition-colors",
-                props.cameraMode === c.id ? "bg-[#00d9ff] text-[#06202a]" : "text-[#9aa4ac] hover:bg-white/10",
+                props.cameraMode === c.id ? "bg-sim-cyan text-sim-panel" : "text-sim-muted hover:bg-sim-soft",
               )}
             >
               <c.icon size={13} />
@@ -99,7 +99,7 @@ export function SimulatorHud(props: HudProps) {
               onClick={() => props.onDriveMode(mode)}
               className={cn(
                 "rounded px-2.5 py-1.5 text-[11px] uppercase tracking-wide transition-colors",
-                props.driveMode === mode ? "bg-[#00ff88] text-[#04220f]" : "text-[#9aa4ac] hover:bg-white/10",
+                props.driveMode === mode ? "bg-sim-green text-sim-panel" : "text-sim-muted hover:bg-sim-soft",
               )}
             >
               {mode === "auto" ? "Autonomous" : "Manual"}
@@ -111,7 +111,7 @@ export function SimulatorHud(props: HudProps) {
           <button
             type="button"
             onClick={props.onToggleRun}
-            className="flex items-center gap-1.5 rounded bg-white/10 px-3 py-1.5 text-[11px] text-white hover:bg-white/20"
+            className="flex items-center gap-1.5 rounded bg-sim-ink px-3 py-1.5 text-[11px] text-sim-panel hover:bg-sim-cyan"
           >
             {props.running ? <Pause size={13} /> : <Play size={13} />}
             {props.running ? "Pause" : "Start"}
@@ -119,7 +119,7 @@ export function SimulatorHud(props: HudProps) {
           <button
             type="button"
             onClick={props.onReset}
-            className="flex items-center gap-1.5 rounded px-3 py-1.5 text-[11px] text-[#9aa4ac] hover:bg-white/10"
+            className="flex items-center gap-1.5 rounded px-3 py-1.5 text-[11px] text-sim-muted hover:bg-sim-soft"
           >
             <RotateCcw size={13} />
             Reset
@@ -127,7 +127,7 @@ export function SimulatorHud(props: HudProps) {
           <button
             type="button"
             onClick={() => props.onQuality(props.quality === "high" ? "low" : "high")}
-            className="rounded px-2 py-1.5 text-[10px] uppercase tracking-wide text-[#9aa4ac] hover:bg-white/10"
+            className="rounded px-2 py-1.5 text-[10px] uppercase tracking-wide text-sim-muted hover:bg-sim-soft"
           >
             {props.quality === "high" ? "High" : "Lite"}
           </button>
@@ -137,7 +137,7 @@ export function SimulatorHud(props: HudProps) {
       {/* scenario picker */}
       <div className="absolute left-3 top-[4.6rem] w-[220px] max-w-[62vw]">
         <Panel>
-          <p className="mb-2 flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-[#8b959d]">
+          <p className="mb-2 flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-sim-muted">
             <ScanLine size={12} /> Scenario
           </p>
           <div className="flex flex-col gap-1">
@@ -148,21 +148,21 @@ export function SimulatorHud(props: HudProps) {
                 onClick={() => props.onScenario(s.id)}
                 className={cn(
                   "rounded px-2 py-1.5 text-left text-[11px] transition-colors",
-                  s.id === scenario.id ? "bg-[#00d9ff]/15 text-[#00d9ff]" : "text-[#9aa4ac] hover:bg-white/8",
+                  s.id === scenario.id ? "bg-sim-cyan/10 text-sim-cyan" : "text-sim-muted hover:bg-sim-soft",
                 )}
               >
                 {s.name}
               </button>
             ))}
           </div>
-          <p className="mt-2 border-t border-white/10 pt-2 text-[10px] leading-snug text-[#7f8991]">{scenario.brief}</p>
+          <p className="mt-2 border-t border-sim-line pt-2 text-[10px] leading-snug text-sim-muted">{scenario.brief}</p>
         </Panel>
       </div>
 
       {/* sensors */}
       <div className="absolute bottom-3 left-3 hidden w-[220px] md:block">
         <Panel>
-          <p className="mb-2 flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-[#8b959d]">
+          <p className="mb-2 flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-sim-muted">
             <Activity size={12} /> Sensor stack
           </p>
           {[
@@ -175,16 +175,16 @@ export function SimulatorHud(props: HudProps) {
             ["AI compute (ECU)", `${m.latencyMs} ms`, true],
           ].map(([name, range, ok]) => (
             <div key={name as string} className="flex items-center justify-between py-0.5">
-              <span className="flex items-center gap-1.5 text-[11px] text-[#c3cbd1]">
-                <span className={cn("h-1.5 w-1.5 rounded-full", ok ? "bg-[#00ff88]" : "bg-[#ff3b30]")} />
+              <span className="flex items-center gap-1.5 text-[11px] text-sim-ink">
+                <span className={cn("h-1.5 w-1.5 rounded-full", ok ? "bg-sim-green" : "bg-sim-red")} />
                 {name}
               </span>
-              <span className="font-mono text-[10px] text-[#8b959d]">{range}</span>
+              <span className="font-mono text-[10px] text-sim-muted">{range}</span>
             </div>
           ))}
-          <div className="mt-2 border-t border-white/10 pt-2">
-            <Row label="Tracked objects" value={m.tracked} accent="text-[#00d9ff]" />
-            <Row label="Sensor health" value={`${m.sensorHealth}%`} accent="text-[#00ff88]" />
+          <div className="mt-2 border-t border-sim-line pt-2">
+            <Row label="Tracked objects" value={m.tracked} accent="text-sim-cyan" />
+            <Row label="Sensor health" value={`${m.sensorHealth}%`} accent="text-sim-green" />
           </div>
         </Panel>
       </div>
@@ -194,14 +194,14 @@ export function SimulatorHud(props: HudProps) {
         <Panel>
           <div className="mb-2 flex items-end justify-between">
             <div>
-              <p className="font-mono text-3xl leading-none text-white">{m.speedKph.toFixed(0)}</p>
-              <p className="text-[10px] uppercase tracking-wider text-[#8b959d]">km/h</p>
+              <p className="font-mono text-3xl leading-none text-sim-ink">{m.speedKph.toFixed(0)}</p>
+              <p className="text-[10px] uppercase tracking-wider text-sim-muted">km/h</p>
             </div>
-            <Gauge size={18} className="text-[#00d9ff]" />
+            <Gauge size={18} className="text-sim-cyan" />
           </div>
-          <Row label="Mode" value={props.driveMode === "auto" ? "Autonomous" : "Manual"} accent="text-[#00ff88]" />
+          <Row label="Mode" value={props.driveMode === "auto" ? "Autonomous" : "Manual"} accent="text-sim-green" />
           <Row label="Camera" value={props.cameraMode} />
-          <Row label="Detected" value={m.detected} accent="text-[#00d9ff]" />
+          <Row label="Detected" value={m.detected} accent="text-sim-cyan" />
           <Row
             label="Nearest"
             value={m.nearest ? `${m.nearest.label} · ${m.nearest.distance.toFixed(0)} m` : "clear"}
@@ -210,12 +210,12 @@ export function SimulatorHud(props: HudProps) {
           <Row label="Replanning" value={`${m.latencyMs} ms`} />
           <Row label="Braking events" value={m.brakeEvents} />
           <div className="mt-2">
-            <div className="mb-1 flex justify-between text-[10px] uppercase tracking-wider text-[#8b959d]">
+            <div className="mb-1 flex justify-between text-[10px] uppercase tracking-wider text-sim-muted">
               <span>Scenario completion</span>
-              <span className="font-mono text-[#00ff88]">{m.completion.toFixed(0)}%</span>
+              <span className="font-mono text-sim-green">{m.completion.toFixed(0)}%</span>
             </div>
-            <div className="h-1 w-full overflow-hidden rounded bg-white/10">
-              <div className="h-full bg-[#00ff88] transition-[width] duration-300" style={{ width: `${m.completion}%` }} />
+            <div className="h-1 w-full overflow-hidden rounded bg-sim-soft">
+              <div className="h-full bg-sim-green transition-[width] duration-300" style={{ width: `${m.completion}%` }} />
             </div>
           </div>
         </Panel>
@@ -224,18 +224,18 @@ export function SimulatorHud(props: HudProps) {
       {/* event log */}
       <div className="absolute right-3 top-[4.6rem] hidden w-[250px] lg:block">
         <Panel>
-          <p className="mb-1.5 text-[10px] uppercase tracking-wider text-[#8b959d]">Event log</p>
+          <p className="mb-1.5 text-[10px] uppercase tracking-wider text-sim-muted">Event log</p>
           <div className="flex max-h-[180px] flex-col gap-1 overflow-hidden">
-            {events.length === 0 && <span className="text-[11px] text-[#7f8991]">No events yet — press Start.</span>}
+            {events.length === 0 && <span className="text-[11px] text-sim-muted">No events yet — press Start.</span>}
             {events.slice(0, 7).map((e) => (
               <div key={e.id} className="flex items-start gap-1.5 text-[11px] leading-snug">
                 <span
                   className={cn(
                     "mt-[3px] h-1.5 w-1.5 shrink-0 rounded-full",
-                    e.kind === "warning" ? "bg-[#ff3b30]" : e.kind === "brake" ? "bg-[#ff9f1c]" : "bg-[#00d9ff]",
+                    e.kind === "warning" ? "bg-sim-red" : e.kind === "brake" ? "bg-sim-amber" : "bg-sim-cyan",
                   )}
                 />
-                <span className="text-[#c3cbd1]">{e.label}</span>
+                <span className="text-sim-ink">{e.label}</span>
               </div>
             ))}
           </div>
@@ -245,7 +245,7 @@ export function SimulatorHud(props: HudProps) {
       {/* collision warning */}
       {m.risk === "high" && (
         <div className="absolute left-1/2 top-16 -translate-x-1/2">
-          <div className="pointer-events-none flex animate-pulse items-center gap-2 rounded border border-[#ff3b30] bg-[#2a0b0a]/85 px-4 py-2 text-[12px] font-semibold uppercase tracking-wider text-[#ff6b60] backdrop-blur">
+          <div className="pointer-events-none flex animate-pulse items-center gap-2 rounded border border-sim-red bg-sim-panel px-4 py-2 text-[12px] font-semibold uppercase tracking-wider text-sim-red shadow-sm backdrop-blur">
             <AlertTriangle size={14} /> Collision risk — braking
           </div>
         </div>

@@ -149,7 +149,7 @@ export function Footer() {
   return (
     <footer className="border-t border-border bg-background px-6 py-8 lg:px-10">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 text-sm text-muted-foreground sm:flex-row">
-        <p>© 2026 SafeAutonomy India. All rights reserved.</p>
+        <p>© 2026 SAFEMARG. All rights reserved.</p>
         <p className="flex gap-5">
           <a href="mailto:founders@safeautonomy.in" className="hover:text-foreground">
             Privacy policy

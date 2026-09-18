@@ -190,15 +190,15 @@ export default function TopDownSim() {
     const url = canvas.toDataURL("image/png");
     const a = document.createElement("a");
     a.href = url;
-    a.download = `safeautonomy-${scenario.id}.png`;
+    a.download = `safemarg-${scenario.id}.png`;
     a.click();
   };
 
   return (
-    <div className="flex min-h-[100dvh] flex-col gap-3 bg-[#070b0f] p-3 text-[#e6edf3] lg:flex-row">
-      <div className="relative min-h-[420px] flex-1 overflow-hidden rounded-xl border border-white/10 bg-[#080d12]">
+    <div className="flex min-h-[100dvh] flex-col gap-3 bg-sim-page p-3 text-sim-ink lg:flex-row">
+      <div className="relative min-h-[420px] flex-1 overflow-hidden rounded-lg border border-sim-line bg-sim-panel shadow-sm">
         <canvas ref={canvasRef} className="h-full w-full" />
-        <div className="pointer-events-none absolute left-3 top-3 rounded-md border border-white/10 bg-black/45 px-3 py-2 font-mono text-[11px] uppercase tracking-widest text-[#22d3ee] backdrop-blur">
+        <div className="pointer-events-none absolute left-3 top-3 rounded-md border border-sim-line bg-sim-panel px-3 py-2 font-mono text-[11px] font-semibold uppercase tracking-widest text-sim-cyan shadow-sm backdrop-blur">
           {scenario.name}
         </div>
       </div>
@@ -212,8 +212,8 @@ export default function TopDownSim() {
                 onClick={() => setScenarioId(s.id)}
                 className={`rounded-md border px-3 py-2 text-left font-mono text-[11px] transition ${
                   s.id === scenarioId
-                    ? "border-[#22d3ee]/60 bg-[#22d3ee]/10 text-[#22d3ee]"
-                    : "border-white/10 bg-white/[0.02] text-[#9aa4ac] hover:border-white/25 hover:text-white"
+                    ? "border-sim-cyan bg-sim-cyan/10 text-sim-cyan"
+                    : "border-sim-line bg-sim-panel text-sim-muted hover:border-sim-muted hover:text-sim-ink"
                 }`}
               >
                 <span className="opacity-60">{String(i + 1).padStart(2, "0")}</span> {s.name}
@@ -232,13 +232,13 @@ export default function TopDownSim() {
             <Stat label="Ego speed" value={`${(stats.speed * 3.6).toFixed(0)} km/h`} />
             <Stat label="Near-misses" value={String(stats.collisions)} />
           </div>
-          <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
+          <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-sim-soft">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-[#22d3ee] to-[#34d399] transition-[width] duration-150"
+              className="h-full rounded-full bg-sim-green transition-[width] duration-150"
               style={{ width: `${stats.completion}%` }}
             />
           </div>
-          <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-[#6b7681]">
+          <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-sim-muted">
             status · {stats.status}
           </p>
         </Panel>
@@ -254,13 +254,13 @@ export default function TopDownSim() {
             ).map(([key, label]) => (
               <label
                 key={key}
-                className="flex cursor-pointer items-center gap-2 rounded-md border border-white/10 bg-white/[0.02] px-3 py-2 font-mono text-[11px] text-[#9aa4ac]"
+                className="flex cursor-pointer items-center gap-2 rounded-md border border-sim-line bg-sim-panel px-3 py-2 font-mono text-[11px] text-sim-muted"
               >
                 <input
                   type="checkbox"
                   checked={sensors[key]}
                   onChange={(e) => setSensors((p) => ({ ...p, [key]: e.target.checked }))}
-                  className="h-3.5 w-3.5 accent-[#22d3ee]"
+                  className="h-3.5 w-3.5 accent-sim-cyan"
                 />
                 <span style={{ color: SENSOR[key].color }}>■</span>
                 {label}
@@ -272,7 +272,7 @@ export default function TopDownSim() {
         <div className="grid grid-cols-2 gap-2">
           <button
             onClick={() => setRunning((r) => !r)}
-            className="rounded-md bg-[#22d3ee] px-3 py-2.5 font-mono text-[11px] font-semibold uppercase tracking-widest text-[#04222a] transition hover:bg-[#67e8f9]"
+            className="rounded-md bg-sim-ink px-3 py-2.5 font-mono text-[11px] font-semibold uppercase tracking-widest text-sim-panel transition hover:bg-sim-cyan"
           >
             {running ? "Pause" : "Run scenario"}
           </button>
@@ -281,13 +281,13 @@ export default function TopDownSim() {
               setRunning(false);
               reset(scenario);
             }}
-            className="rounded-md border border-white/15 px-3 py-2.5 font-mono text-[11px] uppercase tracking-widest text-[#9aa4ac] transition hover:border-white/35 hover:text-white"
+            className="rounded-md border border-sim-line bg-sim-panel px-3 py-2.5 font-mono text-[11px] uppercase tracking-widest text-sim-muted transition hover:border-sim-muted hover:text-sim-ink"
           >
             Reset
           </button>
           <button
             onClick={shoot}
-            className="col-span-2 rounded-md border border-white/15 px-3 py-2 font-mono text-[10px] uppercase tracking-widest text-[#6b7681] transition hover:border-white/35 hover:text-white"
+            className="col-span-2 rounded-md border border-sim-line bg-sim-panel px-3 py-2 font-mono text-[10px] uppercase tracking-widest text-sim-muted transition hover:border-sim-muted hover:text-sim-ink"
           >
             Capture frame (PNG)
           </button>
@@ -299,8 +299,8 @@ export default function TopDownSim() {
 
 function Panel({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="rounded-xl border border-white/10 bg-[#0a1016] p-3">
-      <h2 className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[#6b7681]">{title}</h2>
+    <section className="rounded-lg border border-sim-line bg-sim-panel p-3 shadow-sm">
+      <h2 className="mb-2 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-sim-muted">{title}</h2>
       {children}
     </section>
   );
@@ -308,9 +308,9 @@ function Panel({ title, children }: { title: string; children: React.ReactNode }
 
 function Stat({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
   return (
-    <div className="rounded-md border border-white/10 bg-white/[0.02] px-2.5 py-2">
-      <p className="font-mono text-[9px] uppercase tracking-widest text-[#6b7681]">{label}</p>
-      <p className={`font-mono text-lg ${accent ? "text-[#34d399]" : "text-white"}`}>{value}</p>
+    <div className="rounded-md border border-sim-line bg-sim-soft/55 px-2.5 py-2">
+      <p className="font-mono text-[9px] uppercase tracking-widest text-sim-muted">{label}</p>
+      <p className={`font-mono text-lg ${accent ? "text-sim-green" : "text-sim-ink"}`}>{value}</p>
     </div>
   );
 }
@@ -463,13 +463,13 @@ function draw(
   const toX = (x: number) => ox + (x - w.ego.x) * scale;
   const toY = (y: number) => oy - (y - w.ego.y) * scale;
 
-  ctx.fillStyle = "#070b0f";
+  ctx.fillStyle = "#eef2f4";
   ctx.fillRect(0, 0, cw, ch);
 
   // road surface
-  ctx.fillStyle = "#12181e";
+  ctx.fillStyle = "#ffffff";
   ctx.fillRect(toX(-s.roadHalfWidth), 0, s.roadHalfWidth * 2 * scale, ch);
-  ctx.strokeStyle = "rgba(255,255,255,0.10)";
+  ctx.strokeStyle = "rgba(35,52,66,0.16)";
   ctx.setLineDash([12, 10]);
   ctx.lineWidth = 1;
   [-s.roadHalfWidth, s.roadHalfWidth].forEach((x) => {
@@ -481,8 +481,8 @@ function draw(
   ctx.setLineDash([]);
 
   // distance grid every 10 m
-  ctx.strokeStyle = "rgba(255,255,255,0.045)";
-  ctx.fillStyle = "rgba(255,255,255,0.18)";
+  ctx.strokeStyle = "rgba(35,52,66,0.07)";
+  ctx.fillStyle = "rgba(35,52,66,0.38)";
   ctx.font = "9px ui-monospace, monospace";
   const startM = Math.floor((w.ego.y - 20) / 10) * 10;
   for (let m = startM; m < w.ego.y + ch / scale; m += 10) {

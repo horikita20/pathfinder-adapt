@@ -138,7 +138,7 @@ export default function HardwareAssembly() {
     <main className="hardware-shell">
       <header className="hardware-header">
         <div className="hardware-brand">
-          <Link to="/" aria-label="Back to SafeAutonomy India">
+          <Link to="/" aria-label="Back to SAFEMARG">
             <CircuitBoard aria-hidden />
           </Link>
           <div>

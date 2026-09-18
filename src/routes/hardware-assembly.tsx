@@ -3,9 +3,9 @@ import { ClientOnly, createFileRoute } from "@tanstack/react-router";
 
 const HardwareAssembly = lazy(() => import("@/components/hardware/HardwareAssembly"));
 
-const title = "Hardware Assembly Walkthrough | SafeAutonomy India";
+const title = "Hardware Assembly Walkthrough | SAFEMARG";
 const description =
-  "Interactive five-step schematic showing how the SafeAutonomy prototype connects sensors, vision, motor control, power and AI path planning.";
+  "Interactive five-step schematic showing how the SAFEMARG prototype connects sensors, vision, motor control, power and AI path planning.";
 
 export const Route = createFileRoute("/hardware-assembly")({
   head: () => ({

@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AutonomousDrivingIndiaRouteImport } from './routes/autonomous-driving-india'
 import { Route as HardwareAssemblyRouteImport } from './routes/hardware-assembly'
+import { Route as MatlabDemoRouteImport } from './routes/matlab-demo'
 import { Route as PerceptionRouteImport } from './routes/perception'
 import { Route as ScenarioPlannerRouteImport } from './routes/scenario-planner'
 import { Route as SimulatorRouteImport } from './routes/simulator'
@@ -31,6 +32,11 @@ const AutonomousDrivingIndiaRoute = AutonomousDrivingIndiaRouteImport.update({
 const HardwareAssemblyRoute = HardwareAssemblyRouteImport.update({
   id: '/hardware-assembly',
   path: '/hardware-assembly',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MatlabDemoRoute = MatlabDemoRouteImport.update({
+  id: '/matlab-demo',
+  path: '/matlab-demo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PerceptionRoute = PerceptionRouteImport.update({
@@ -63,6 +69,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/autonomous-driving-india': typeof AutonomousDrivingIndiaRoute
   '/hardware-assembly': typeof HardwareAssemblyRoute
+  '/matlab-demo': typeof MatlabDemoRoute
   '/perception': typeof PerceptionRoute
   '/scenario-planner': typeof ScenarioPlannerRoute
   '/simulator': typeof SimulatorRoute
@@ -73,6 +80,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/autonomous-driving-india': typeof AutonomousDrivingIndiaRoute
   '/hardware-assembly': typeof HardwareAssemblyRoute
+  '/matlab-demo': typeof MatlabDemoRoute
   '/perception': typeof PerceptionRoute
   '/scenario-planner': typeof ScenarioPlannerRoute
   '/simulator': typeof SimulatorRoute
@@ -84,6 +92,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/autonomous-driving-india': typeof AutonomousDrivingIndiaRoute
   '/hardware-assembly': typeof HardwareAssemblyRoute
+  '/matlab-demo': typeof MatlabDemoRoute
   '/perception': typeof PerceptionRoute
   '/scenario-planner': typeof ScenarioPlannerRoute
   '/simulator': typeof SimulatorRoute
@@ -96,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/autonomous-driving-india'
     | '/hardware-assembly'
+    | '/matlab-demo'
     | '/perception'
     | '/scenario-planner'
     | '/simulator'
@@ -106,6 +116,7 @@ export interface FileRouteTypes {
     | '/'
     | '/autonomous-driving-india'
     | '/hardware-assembly'
+    | '/matlab-demo'
     | '/perception'
     | '/scenario-planner'
     | '/simulator'
@@ -116,6 +127,7 @@ export interface FileRouteTypes {
     | '/'
     | '/autonomous-driving-india'
     | '/hardware-assembly'
+    | '/matlab-demo'
     | '/perception'
     | '/scenario-planner'
     | '/simulator'
@@ -127,6 +139,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AutonomousDrivingIndiaRoute: typeof AutonomousDrivingIndiaRoute
   HardwareAssemblyRoute: typeof HardwareAssemblyRoute
+  MatlabDemoRoute: typeof MatlabDemoRoute
   PerceptionRoute: typeof PerceptionRoute
   ScenarioPlannerRoute: typeof ScenarioPlannerRoute
   SimulatorRoute: typeof SimulatorRoute
@@ -155,6 +168,13 @@ declare module '@tanstack/react-router' {
       path: '/hardware-assembly'
       fullPath: '/hardware-assembly'
       preLoaderRoute: typeof HardwareAssemblyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/matlab-demo': {
+      id: '/matlab-demo'
+      path: '/matlab-demo'
+      fullPath: '/matlab-demo'
+      preLoaderRoute: typeof MatlabDemoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/perception': {
@@ -199,6 +219,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AutonomousDrivingIndiaRoute: AutonomousDrivingIndiaRoute,
   HardwareAssemblyRoute: HardwareAssemblyRoute,
+  MatlabDemoRoute: MatlabDemoRoute,
   PerceptionRoute: PerceptionRoute,
   ScenarioPlannerRoute: ScenarioPlannerRoute,
   SimulatorRoute: SimulatorRoute,

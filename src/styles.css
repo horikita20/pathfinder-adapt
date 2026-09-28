@@ -1,0 +1,433 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * SAFEMARG design system.
+ * Light neutral base, restrained teal primary, amber (problem), green (traction).
+ * All colors are oklch tokens — never hardcode colors in components.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-warning: var(--warning);
+  --color-success: var(--success);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-hardware-board: var(--hardware-board);
+  --color-hardware-panel: var(--hardware-panel);
+  --color-hardware-grid: var(--hardware-grid);
+  --color-hardware-mint: var(--hardware-mint);
+  --color-hardware-amber: var(--hardware-amber);
+  --color-hardware-dim: var(--hardware-dim);
+  --color-hardware-ink: var(--hardware-ink);
+  --color-hardware-soft: var(--hardware-soft);
+  --color-sim-page: var(--sim-page);
+  --color-sim-panel: var(--sim-panel);
+  --color-sim-soft: var(--sim-soft);
+  --color-sim-ink: var(--sim-ink);
+  --color-sim-muted: var(--sim-muted);
+  --color-sim-line: var(--sim-line);
+  --color-sim-cyan: var(--sim-cyan);
+  --color-sim-green: var(--sim-green);
+  --color-sim-amber: var(--sim-amber);
+  --color-sim-red: var(--sim-red);
+}
+
+:root {
+  --radius: 0.5rem;
+
+  --background: oklch(0.99 0.002 220);
+  --foreground: oklch(0.23 0.025 240);
+  --surface: oklch(0.965 0.006 220);
+  --surface-raised: oklch(1 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.23 0.025 240);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.23 0.025 240);
+
+  --primary: oklch(0.54 0.135 205);
+  --primary-foreground: oklch(0.99 0.002 220);
+  --secondary: oklch(0.94 0.01 220);
+  --secondary-foreground: oklch(0.28 0.025 240);
+  --muted: oklch(0.94 0.008 220);
+  --muted-foreground: oklch(0.48 0.02 240);
+  --accent: oklch(0.92 0.025 190);
+  --accent-foreground: oklch(0.27 0.045 210);
+
+  --warning: oklch(0.61 0.17 52);
+  --success: oklch(0.53 0.135 155);
+  --destructive: oklch(0.58 0.2 27);
+  --destructive-foreground: oklch(0.99 0.002 220);
+
+  --border: oklch(0.86 0.012 225);
+  --input: oklch(0.82 0.014 225);
+  --ring: oklch(0.54 0.135 205);
+
+  --gradient-shell: linear-gradient(160deg, oklch(0.99 0.002 220), oklch(0.955 0.012 205));
+  --gradient-primary: linear-gradient(100deg, oklch(0.54 0.135 205), oklch(0.53 0.135 155));
+  --shadow-glow: 0 0 0 1px color-mix(in oklab, var(--primary) 18%, transparent),
+    0 14px 34px -20px color-mix(in oklab, var(--primary) 32%, transparent);
+  --shadow-card: 0 18px 44px -32px oklch(0.23 0.025 240 / 28%);
+
+  --sidebar: oklch(0.98 0.004 220);
+  --sidebar-foreground: oklch(0.23 0.025 240);
+  --sidebar-primary: oklch(0.54 0.135 205);
+  --sidebar-primary-foreground: oklch(0.99 0.002 220);
+  --sidebar-accent: oklch(0.94 0.01 220);
+  --sidebar-accent-foreground: oklch(0.28 0.025 240);
+  --sidebar-border: oklch(0.86 0.012 225);
+  --sidebar-ring: oklch(0.54 0.135 205);
+
+  --hardware-board: oklch(0.975 0.004 165);
+  --hardware-panel: oklch(1 0 0);
+  --hardware-grid: oklch(0.43 0.03 165 / 10%);
+  --hardware-mint: oklch(0.62 0.16 158);
+  --hardware-amber: oklch(0.65 0.16 67);
+  --hardware-dim: oklch(0.49 0.018 225);
+  --hardware-ink: oklch(0.23 0.025 235);
+  --hardware-soft: oklch(0.94 0.007 180);
+
+  --sim-page: oklch(0.965 0.006 235);
+  --sim-panel: oklch(1 0 0 / 94%);
+  --sim-soft: oklch(0.94 0.008 235);
+  --sim-ink: oklch(0.24 0.025 245);
+  --sim-muted: oklch(0.52 0.018 240);
+  --sim-line: oklch(0.85 0.012 235);
+  --sim-cyan: oklch(0.62 0.15 220);
+  --sim-green: oklch(0.58 0.15 158);
+  --sim-amber: oklch(0.67 0.16 70);
+  --sim-red: oklch(0.58 0.2 27);
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--primary) 35%, transparent);
+  }
+}
+
+@utility shell-gradient {
+  background-image: var(--gradient-shell);
+}
+
+@utility hex-grid {
+  position: relative;
+  isolation: isolate;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.35;
+    background-image:
+      linear-gradient(color-mix(in oklab, var(--primary) 8%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in oklab, var(--primary) 8%, transparent) 1px, transparent 1px);
+    background-size: 68px 68px;
+    mask-image: radial-gradient(ellipse at 50% 30%, black, transparent 72%);
+  }
+}
+
+@utility section-tag {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+@utility reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  &[data-visible="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hardware-march {
+  to { stroke-dashoffset: -30; }
+}
+
+@keyframes hardware-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes hardware-node-in {
+  0% { transform: scale(0.96); filter: brightness(0.7); }
+  55% { transform: scale(1.025); filter: brightness(1.25); }
+  100% { transform: scale(1); filter: brightness(1); }
+}
+
+@keyframes hardware-copy-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hardware-label-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@layer components {
+  .hardware-shell {
+    min-height: 100dvh;
+    height: 100dvh;
+    overflow: hidden;
+    background: var(--hardware-board);
+    color: var(--hardware-ink);
+    font-family: var(--font-sans);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
+
+  .hardware-header {
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px clamp(18px, 3vw, 48px);
+    border-bottom: 1px solid color-mix(in oklab, var(--hardware-ink) 10%, transparent);
+    background: var(--hardware-panel);
+  }
+
+  .hardware-brand { display: flex; align-items: center; gap: 14px; }
+  .hardware-brand > a {
+    display: grid; place-items: center; width: 42px; height: 42px;
+    border: 1px solid color-mix(in oklab, var(--hardware-mint) 35%, transparent);
+    border-radius: 6px; color: var(--hardware-mint); background: color-mix(in oklab, var(--hardware-mint) 8%, transparent);
+  }
+  .hardware-brand svg { width: 22px; }
+  .hardware-brand div { display: flex; flex-direction: column; gap: 2px; }
+  .hardware-brand span { color: var(--hardware-dim); font-size: 9px; letter-spacing: 0.12em; }
+  .hardware-brand strong { font-family: var(--font-sans); font-size: 18px; letter-spacing: 0; }
+  .hardware-system-status { color: var(--hardware-dim); font-size: 10px; letter-spacing: 0.12em; }
+  .hardware-system-status > span {
+    display: inline-block; width: 7px; height: 7px; margin-right: 8px; border-radius: 50%;
+    background: var(--hardware-mint); box-shadow: 0 0 12px var(--hardware-mint);
+  }
+
+  .hardware-stage {
+    width: min(1320px, 100%); margin: 0 auto;
+    min-height: 0; display: grid; grid-template-columns: minmax(245px, 0.32fr) minmax(620px, 1fr);
+    gap: clamp(20px, 3vw, 44px); align-items: center;
+    padding: 18px clamp(18px, 3vw, 44px);
+  }
+  .hardware-copy { animation: hardware-copy-in 420ms ease-out both; }
+  .hardware-copy > span { color: var(--hardware-mint); font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+  .hardware-copy h1 {
+    max-width: 430px; margin: 14px 0 14px; font-family: var(--font-sans);
+    font-size: clamp(28px, 2.6vw, 44px); line-height: 1.08; letter-spacing: 0; text-wrap: balance;
+  }
+  .hardware-copy p { max-width: 390px; color: var(--hardware-dim); font-size: 12px; line-height: 1.65; }
+
+  .hardware-board-wrap { width: 100%; min-width: 0; }
+  .hardware-board {
+    position: relative; width: 100%; aspect-ratio: 12 / 7; min-height: 380px; overflow: hidden;
+    border: 1px solid color-mix(in oklab, var(--hardware-ink) 12%, transparent);
+    border-radius: 8px;
+    background-color: var(--hardware-panel);
+    background-image:
+      linear-gradient(var(--hardware-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--hardware-grid) 1px, transparent 1px),
+      linear-gradient(color-mix(in oklab, var(--hardware-grid) 42%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in oklab, var(--hardware-grid) 42%, transparent) 1px, transparent 1px);
+    background-size: 40px 40px, 40px 40px, 8px 8px, 8px 8px;
+    box-shadow: 0 14px 40px color-mix(in oklab, var(--hardware-ink) 9%, transparent);
+  }
+  .hardware-board::before {
+    content: ""; position: absolute; inset: 0; opacity: .28; pointer-events: none;
+    background: linear-gradient(90deg, transparent 49.8%, color-mix(in oklab, var(--hardware-mint) 10%, transparent) 50%, transparent 50.2%);
+  }
+  .hardware-board-meta { position: absolute; top: 16px; z-index: 5; color: color-mix(in oklab, var(--hardware-mint) 52%, transparent); font-size: 8px; letter-spacing: .13em; }
+  .hardware-board-meta-left { left: 20px; }
+  .hardware-board-meta-right { right: 20px; }
+
+  .hardware-node {
+    position: absolute; z-index: 4; box-sizing: border-box; width: 23%; min-height: 90px;
+    display: grid; grid-template-columns: 36px 1fr; gap: 10px; align-items: center;
+    padding: 13px 14px;
+    border: 1px solid color-mix(in oklab, var(--hardware-ink) 14%, transparent);
+    border-radius: 7px;
+    background: color-mix(in oklab, var(--hardware-soft) 76%, var(--hardware-panel));
+    color: var(--hardware-dim); opacity: .62;
+    transition: opacity 500ms ease, border-color 500ms ease, box-shadow 500ms ease, color 500ms ease;
+  }
+  .hardware-node.is-active {
+    opacity: 1; color: var(--hardware-ink); border-color: color-mix(in oklab, var(--hardware-mint) 60%, transparent);
+    background: color-mix(in oklab, var(--hardware-mint) 5%, var(--hardware-panel));
+    box-shadow: 0 5px 16px color-mix(in oklab, var(--hardware-ink) 8%, transparent);
+  }
+  .hardware-node.is-current { animation: hardware-node-in 700ms ease-out both; }
+  .hardware-node-index { position: absolute; top: 7px; right: 8px; color: color-mix(in oklab, var(--hardware-mint) 52%, transparent); font-size: 8px; }
+  .hardware-node-icon { width: 29px; height: 29px; color: currentColor; }
+  .hardware-node.is-active .hardware-node-icon { color: var(--hardware-mint); }
+  .hardware-node strong { display: block; margin-bottom: 4px; font-family: var(--font-sans); font-size: clamp(11px, 1.1vw, 16px); letter-spacing: 0; white-space: nowrap; }
+  .hardware-node div > span { display: block; color: currentColor; font-size: clamp(7px, .7vw, 10px); line-height: 1.3; white-space: nowrap; }
+  .hardware-node-status {
+    grid-column: 1 / -1; display: flex; align-items: center; gap: 6px; padding-top: 7px;
+    border-top: 1px solid color-mix(in oklab, currentColor 15%, transparent); color: currentColor; font-size: 7px; letter-spacing: .13em;
+  }
+  .hardware-node-status svg, .hardware-node-status > span { width: 9px; height: 9px; }
+  .hardware-node-status > span { border: 1px solid currentColor; border-radius: 50%; }
+
+  .node-esp32 { width: 23%; left: 38.5%; top: 42%; }
+  .node-ultrasonic { left: 22.5%; top: 7%; }
+  .node-camera { left: 3.5%; top: 39%; }
+  .node-motor { left: 23%; bottom: 5%; }
+  .node-battery { right: 3.5%; bottom: 10%; }
+  .node-laptop { right: 3.5%; top: 7%; }
+
+  .hardware-connections { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; overflow: visible; }
+  .hardware-wire-glow, .hardware-wire { fill: none; vector-effect: non-scaling-stroke; }
+  .hardware-wire-glow { stroke: var(--hardware-mint); stroke-width: 8; opacity: .09; filter: url(#wire-glow); }
+  .hardware-wire { stroke: var(--hardware-mint); stroke-width: 2.25; stroke-dasharray: 9 8; animation: hardware-march 1.1s linear infinite; }
+  .hardware-connection.is-wifi .hardware-wire-glow, .hardware-connection.is-wifi .hardware-wire { stroke: var(--hardware-amber); }
+  .hardware-connection.is-wifi .hardware-wire { stroke-width: 2.5; stroke-dasharray: 4 9; }
+  .hardware-connection.is-entering .hardware-wire-glow, .hardware-connection.is-entering .hardware-wire { stroke-dasharray: 1; animation: hardware-draw 1s cubic-bezier(.2,.75,.25,1) both; }
+  .hardware-wire-label { animation: hardware-label-in 400ms 700ms ease-out both; }
+  .hardware-wire-label rect { fill: var(--hardware-panel); stroke: color-mix(in oklab, var(--hardware-mint) 42%, transparent); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .is-wifi .hardware-wire-label rect { stroke: color-mix(in oklab, var(--hardware-amber) 55%, transparent); }
+  .hardware-wire-label text { fill: var(--hardware-mint); font-size: 13px; font-family: ui-monospace, monospace; letter-spacing: 0; }
+  .is-wifi .hardware-wire-label text { fill: var(--hardware-amber); }
+
+  .hardware-board-corner { position: absolute; z-index: 6; width: 16px; height: 16px; border-color: var(--hardware-mint); opacity: .5; }
+  .corner-a { left: 8px; top: 8px; border-left: 1px solid; border-top: 1px solid; }
+  .corner-b { right: 8px; top: 8px; border-right: 1px solid; border-top: 1px solid; }
+  .corner-c { left: 8px; bottom: 8px; border-left: 1px solid; border-bottom: 1px solid; }
+  .corner-d { right: 8px; bottom: 8px; border-right: 1px solid; border-bottom: 1px solid; }
+
+  .hardware-controls {
+    min-height: 82px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px;
+    padding: 12px clamp(18px, 3vw, 44px); border-top: 1px solid color-mix(in oklab, var(--hardware-ink) 10%, transparent);
+    background: var(--hardware-panel);
+  }
+  .hardware-progress { display: flex; align-items: center; gap: 16px; }
+  .hardware-progress-count { min-width: 76px; color: var(--hardware-ink); font-family: var(--font-sans); font-size: 25px; font-weight: 700; letter-spacing: 0; }
+  .hardware-progress-count small { color: var(--hardware-dim); font-size: 11px; font-weight: 400; }
+  .hardware-progress-track { display: flex; gap: 5px; width: min(250px, 20vw); }
+  .hardware-progress-track button { height: 5px; min-width: 12px; flex: 1; border: 0; border-radius: 1px; background: color-mix(in oklab, var(--hardware-dim) 20%, transparent); cursor: pointer; transition: background 350ms, flex 350ms; }
+  .hardware-progress-track button.is-complete { background: color-mix(in oklab, var(--hardware-mint) 50%, transparent); }
+  .hardware-progress-track button.is-current { flex: 1.8; background: var(--hardware-mint); box-shadow: 0 0 10px color-mix(in oklab, var(--hardware-mint) 45%, transparent); }
+  .hardware-actions { display: flex; justify-content: center; gap: 10px; }
+  .hardware-actions button { font-family: var(--font-sans); font-weight: 600; letter-spacing: 0; }
+  .hardware-next { min-width: 200px; background: var(--hardware-ink); color: var(--hardware-panel); box-shadow: 0 5px 14px color-mix(in oklab, var(--hardware-ink) 14%, transparent); }
+  .hardware-next:hover { background: color-mix(in oklab, var(--hardware-ink) 88%, var(--hardware-mint)); }
+  .hardware-replay { min-width: 210px; border-color: color-mix(in oklab, var(--hardware-ink) 18%, transparent); color: var(--hardware-ink); background: var(--hardware-panel); }
+  .hardware-key-hint { justify-self: end; color: color-mix(in oklab, var(--hardware-dim) 62%, transparent); font-size: 9px; letter-spacing: .08em; }
+  .hardware-key-hint span { display: inline-grid; place-items: center; min-width: 22px; height: 22px; margin: 0 2px; border: 1px solid color-mix(in oklab, var(--hardware-dim) 30%, transparent); border-radius: 3px; }
+  .hardware-loading { min-height: 100dvh; display: grid; place-items: center; background: var(--hardware-board); color: var(--hardware-ink); font-family: var(--font-sans); }
+
+  @media (max-width: 980px) {
+    .hardware-stage { grid-template-columns: 1fr; gap: 10px; align-content: center; padding-block: 12px; }
+    .hardware-copy { display: grid; grid-template-columns: 1fr 1.8fr; column-gap: 24px; align-items: end; }
+    .hardware-copy > span { grid-column: 1; }
+    .hardware-copy h1 { grid-column: 1; margin: 5px 0 0; font-size: 24px; }
+    .hardware-copy p { grid-column: 2; grid-row: 1 / 3; align-self: center; font-size: 10px; }
+    .hardware-board { min-height: 0; width: min(100%, 760px); margin-inline: auto; }
+    .hardware-controls { grid-template-columns: 1fr auto; }
+    .hardware-key-hint { display: none; }
+  }
+
+  @media (min-width: 641px) and (max-height: 700px) {
+    .hardware-header { min-height: 54px; padding-block: 8px; }
+    .hardware-brand > a { width: 36px; height: 36px; }
+    .hardware-brand strong { font-size: 15px; }
+    .hardware-stage { gap: 7px; padding-block: 8px; }
+    .hardware-copy { grid-template-columns: minmax(220px, .8fr) 1.6fr; }
+    .hardware-copy h1 { font-size: 21px; }
+    .hardware-copy p { max-width: 520px; font-size: 9px; line-height: 1.45; }
+    .hardware-board { width: min(100%, calc((100dvh - 190px) * 12 / 7)); }
+    .hardware-controls { min-height: 66px; padding-block: 8px; }
+    .hardware-progress-count { font-size: 21px; }
+    .hardware-actions button { height: 38px; }
+  }
+
+  @media (max-width: 640px) {
+    .hardware-shell { height: auto; overflow: auto; }
+    .hardware-header { min-height: 60px; }
+    .hardware-system-status { display: none; }
+    .hardware-stage { padding-block: 14px; }
+    .hardware-copy { display: block; }
+    .hardware-copy h1 { font-size: 25px; }
+    .hardware-copy p { margin-top: 8px; line-height: 1.5; }
+    .hardware-board-wrap { overflow-x: auto; padding-bottom: 5px; }
+    .hardware-board { width: 700px; }
+    .hardware-node strong { font-size: 11px; }
+    .hardware-controls { position: sticky; bottom: 0; grid-template-columns: auto 1fr; min-height: 76px; z-index: 20; }
+    .hardware-progress-track { display: none; }
+    .hardware-progress-count { font-size: 22px; min-width: 65px; }
+    .hardware-actions { justify-content: flex-end; }
+    .hardware-actions button { height: 40px; padding-inline: 12px; font-size: 10px; }
+    .hardware-next { min-width: 0; }
+    .hardware-replay { min-width: 0; }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .hardware-wire, .hardware-connection.is-entering .hardware-wire,
+  .hardware-connection.is-entering .hardware-wire-glow, .hardware-node.is-current,
+  .hardware-copy, .hardware-wire-label { animation: none; }
+}

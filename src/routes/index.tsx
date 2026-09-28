@@ -3,6 +3,7 @@ import { SiteNav } from "@/components/site/nav";
 import { Hero } from "@/components/site/hero";
 import { Problem, Solution, Market, BusinessModel, Team } from "@/components/site/sections";
 import { Contact, Footer } from "@/components/site/contact";
+import carSketch from "@/assets/car-sketch.png.asset.json";
 
 const title = "SAFEMARG | Adaptive Path Planning for Indian Roads";
 const description =
@@ -51,7 +52,16 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="relative min-h-screen bg-background">
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 z-[5] bg-no-repeat opacity-[0.12] mix-blend-multiply"
+        style={{
+          backgroundImage: `url(${carSketch.url})`,
+          backgroundPosition: "right 4% center",
+          backgroundSize: "min(62vw, 720px) auto",
+        }}
+      />
       <SiteNav />
       <main>
         <Hero />

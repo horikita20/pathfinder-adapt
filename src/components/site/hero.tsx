@@ -6,7 +6,7 @@ import { openEmail, scrollToSection } from "@/lib/contact-actions";
 const proofPoints = ["5 Indian road scenarios", "<100ms replanning target", "Simulation-first validation"];
 
 const demos = [
-  { to: "/hardware-assembly", icon: Cpu, title: "Hardware assembly", body: "See how the sensors and computer fit onto the vehicle, step by step." },
+  { to: "/hardware-assembly", icon: Cpu, title: "Hardware assembly", body: "See how sensors, planner, vehicle model and road scenes connect, step by step." },
   { to: "/perception", icon: Radar, title: "Perception demo", body: "Watch the car detect autos, people and cattle and plan a safe path live." },
   { to: "/simulator", icon: Car, title: "3D simulator", body: "Drive through Indian road scenarios in an interactive 3D world." },
 ] as const;

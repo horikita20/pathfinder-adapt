@@ -40,7 +40,7 @@ export function CarBackground() {
       {/* dashed road lane markings moving with scroll */}
       <div
         ref={roadRef}
-        className="absolute inset-y-0 right-[18%] w-[3px] opacity-[0.08] md:right-[28%]"
+        className="absolute inset-y-0 right-[18%] w-[2px] opacity-[0.04] md:right-[28%]"
         style={{
           backgroundImage:
             "repeating-linear-gradient(to bottom, var(--foreground) 0 40px, transparent 40px 90px)",

@@ -10,6 +10,7 @@ const links = [
   { href: "/autonomous-driving-india", label: "Why India" },
   { href: "/#model", label: "Model" },
   { href: "/team", label: "Team" },
+  { href: "/scenario-planner", label: "AI Planner" },
   { href: "/#contact", label: "Contact" },
 ];
 

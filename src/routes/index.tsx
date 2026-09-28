@@ -55,12 +55,8 @@ function Index() {
     <div className="relative min-h-screen bg-background">
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 z-[5] bg-no-repeat opacity-[0.12] mix-blend-multiply"
-        style={{
-          backgroundImage: `url(${carSketch.url})`,
-          backgroundPosition: "right 4% center",
-          backgroundSize: "min(62vw, 720px) auto",
-        }}
+        className="pointer-events-none fixed inset-0 z-[5] bg-no-repeat opacity-[0.06] mix-blend-multiply [background-position:right_-18%_bottom_6%] [background-size:78vw_auto] md:opacity-[0.12] md:[background-position:right_4%_center] md:[background-size:min(62vw,720px)_auto]"
+        style={{ backgroundImage: `url(${carSketch.url})` }}
       />
       <SiteNav />
       <main>

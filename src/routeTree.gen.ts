@@ -13,8 +13,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AutonomousDrivingIndiaRouteImport } from './routes/autonomous-driving-india'
 import { Route as HardwareAssemblyRouteImport } from './routes/hardware-assembly'
 import { Route as PerceptionRouteImport } from './routes/perception'
+import { Route as ScenarioPlannerRouteImport } from './routes/scenario-planner'
 import { Route as SimulatorRouteImport } from './routes/simulator'
 import { Route as TeamRouteImport } from './routes/team'
+import { Route as ApiScenarioPlanRouteImport } from './routes/api/scenario-plan'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -36,6 +38,11 @@ const PerceptionRoute = PerceptionRouteImport.update({
   path: '/perception',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ScenarioPlannerRoute = ScenarioPlannerRouteImport.update({
+  id: '/scenario-planner',
+  path: '/scenario-planner',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SimulatorRoute = SimulatorRouteImport.update({
   id: '/simulator',
   path: '/simulator',
@@ -46,22 +53,31 @@ const TeamRoute = TeamRouteImport.update({
   path: '/team',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiScenarioPlanRoute = ApiScenarioPlanRouteImport.update({
+  id: '/api/scenario-plan',
+  path: '/api/scenario-plan',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/autonomous-driving-india': typeof AutonomousDrivingIndiaRoute
   '/hardware-assembly': typeof HardwareAssemblyRoute
   '/perception': typeof PerceptionRoute
+  '/scenario-planner': typeof ScenarioPlannerRoute
   '/simulator': typeof SimulatorRoute
   '/team': typeof TeamRoute
+  '/api/scenario-plan': typeof ApiScenarioPlanRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/autonomous-driving-india': typeof AutonomousDrivingIndiaRoute
   '/hardware-assembly': typeof HardwareAssemblyRoute
   '/perception': typeof PerceptionRoute
+  '/scenario-planner': typeof ScenarioPlannerRoute
   '/simulator': typeof SimulatorRoute
   '/team': typeof TeamRoute
+  '/api/scenario-plan': typeof ApiScenarioPlanRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -69,8 +85,10 @@ export interface FileRoutesById {
   '/autonomous-driving-india': typeof AutonomousDrivingIndiaRoute
   '/hardware-assembly': typeof HardwareAssemblyRoute
   '/perception': typeof PerceptionRoute
+  '/scenario-planner': typeof ScenarioPlannerRoute
   '/simulator': typeof SimulatorRoute
   '/team': typeof TeamRoute
+  '/api/scenario-plan': typeof ApiScenarioPlanRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -79,24 +97,30 @@ export interface FileRouteTypes {
     | '/autonomous-driving-india'
     | '/hardware-assembly'
     | '/perception'
+    | '/scenario-planner'
     | '/simulator'
     | '/team'
+    | '/api/scenario-plan'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/autonomous-driving-india'
     | '/hardware-assembly'
     | '/perception'
+    | '/scenario-planner'
     | '/simulator'
     | '/team'
+    | '/api/scenario-plan'
   id:
     | '__root__'
     | '/'
     | '/autonomous-driving-india'
     | '/hardware-assembly'
     | '/perception'
+    | '/scenario-planner'
     | '/simulator'
     | '/team'
+    | '/api/scenario-plan'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -104,8 +128,10 @@ export interface RootRouteChildren {
   AutonomousDrivingIndiaRoute: typeof AutonomousDrivingIndiaRoute
   HardwareAssemblyRoute: typeof HardwareAssemblyRoute
   PerceptionRoute: typeof PerceptionRoute
+  ScenarioPlannerRoute: typeof ScenarioPlannerRoute
   SimulatorRoute: typeof SimulatorRoute
   TeamRoute: typeof TeamRoute
+  ApiScenarioPlanRoute: typeof ApiScenarioPlanRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -138,6 +164,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PerceptionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/scenario-planner': {
+      id: '/scenario-planner'
+      path: '/scenario-planner'
+      fullPath: '/scenario-planner'
+      preLoaderRoute: typeof ScenarioPlannerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/simulator': {
       id: '/simulator'
       path: '/simulator'
@@ -152,6 +185,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TeamRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/scenario-plan': {
+      id: '/api/scenario-plan'
+      path: '/api/scenario-plan'
+      fullPath: '/api/scenario-plan'
+      preLoaderRoute: typeof ApiScenarioPlanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -160,8 +200,10 @@ const rootRouteChildren: RootRouteChildren = {
   AutonomousDrivingIndiaRoute: AutonomousDrivingIndiaRoute,
   HardwareAssemblyRoute: HardwareAssemblyRoute,
   PerceptionRoute: PerceptionRoute,
+  ScenarioPlannerRoute: ScenarioPlannerRoute,
   SimulatorRoute: SimulatorRoute,
   TeamRoute: TeamRoute,
+  ApiScenarioPlanRoute: ApiScenarioPlanRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

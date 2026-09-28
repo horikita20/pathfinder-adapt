@@ -343,8 +343,8 @@ export function BusinessModel() {
 
 const team = [
   {
-    name: "Monika Sharma",
-    role: "Founder & CEO",
+    name: "SAFEMARG team",
+    role: "Founder-led",
     bio: "Building SAFEMARG's simulation-led perception and adaptive path-planning platform for Indian road conditions.",
   },
 ];
@@ -368,12 +368,8 @@ export function Team() {
           {team.map((member, i) => (
             <Reveal key={member.role} delay={i * 80}>
               <article className="flex h-full items-start gap-6 rounded-lg border border-border bg-background p-7 shadow-[var(--shadow-card)] transition-colors hover:border-primary/40">
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-primary/45 bg-muted text-lg font-semibold text-primary">
-                  {member.name
-                    .split(" ")
-                    .map((w) => w[0])
-                    .slice(0, 2)
-                    .join("")}
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-primary/45 bg-muted text-primary">
+                  <Users size={22} />
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold">{member.name}</h3>

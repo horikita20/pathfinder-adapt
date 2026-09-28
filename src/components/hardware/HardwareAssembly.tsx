@@ -2,15 +2,15 @@ import { useCallback, useEffect, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
-  BatteryCharging,
   Camera,
+  Car,
   Check,
   CircuitBoard,
   Cpu,
-  Laptop,
-  Radio,
+  Gauge,
+  Map,
+  Radar,
   RotateCcw,
-  Wifi,
 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
@@ -19,33 +19,33 @@ import { cn } from "@/lib/utils";
 const STEPS = [
   {
     number: "01",
-    eyebrow: "Controller online",
-    title: "Power up the ESP32",
-    detail: "The ESP32 initializes the control loop, GPIO interfaces, WiFi and Bluetooth Low Energy.",
+    eyebrow: "Planner core",
+    title: "Set up the adaptive planner in Simulink",
+    detail: "The Simulink model hosts the pipeline: perception → prediction → path planning → Stateflow decision logic → vehicle motion.",
   },
   {
     number: "02",
-    eyebrow: "Distance sensing",
-    title: "Connect the ultrasonic sensor",
-    detail: "TRIG initiates each pulse. ECHO returns its flight time so the controller can calculate obstacle distance.",
+    eyebrow: "Radar + LiDAR",
+    title: "Add radar and LiDAR sensor models",
+    detail: "Automated Driving Toolbox sensor models detect vehicles, auto-rickshaws, pushcarts, pedestrians and animals in 360°.",
   },
   {
     number: "03",
-    eyebrow: "Vision input",
-    title: "Add the ESP32-CAM",
-    detail: "The camera streams compressed frames over a high-speed UART link for local processing and uplink.",
+    eyebrow: "Camera perception",
+    title: "Add camera-based object detection",
+    detail: "A Deep Learning Toolbox detector, trained with Indian road data (IDD), classifies road users and fuses them into object tracks.",
   },
   {
     number: "04",
-    eyebrow: "Vehicle actuation",
-    title: "Wire the motor driver",
-    detail: "Direction pins control motor polarity while the PWM enable line regulates vehicle speed.",
+    eyebrow: "Vehicle motion",
+    title: "Connect the vehicle dynamics model",
+    detail: "Planner commands drive a bicycle model / Vehicle Dynamics Blockset vehicle, which feeds its pose back to close the loop.",
   },
   {
     number: "05",
-    eyebrow: "Complete system",
-    title: "Connect power and intelligence",
-    detail: "The regulated battery rail powers the prototype while WiFi exchanges sensor data and driving commands with the AI laptop.",
+    eyebrow: "Closed-loop validation",
+    title: "Load RoadRunner scenes and measure",
+    detail: "RoadRunner village-road and urban-intersection scenes run the 5 scenarios while replanning latency, path smoothness and completion rate are logged.",
   },
 ] as const;
 
@@ -142,8 +142,8 @@ export default function HardwareAssembly() {
             <CircuitBoard aria-hidden />
           </Link>
           <div>
-            <span>SAFEMARG / LAB 01</span>
-            <strong>Hardware Assembly</strong>
+            <span>SAFEMARG / SIMULATION</span>
+            <strong>System Assembly</strong>
           </div>
         </div>
         <div className="hardware-system-status" aria-label="System status">
@@ -160,8 +160,8 @@ export default function HardwareAssembly() {
 
         <div className="hardware-board-wrap">
           <div className="hardware-board" aria-live="polite">
-            <div className="hardware-board-meta hardware-board-meta-left">SCHEMATIC / REV 1.0</div>
-            <div className="hardware-board-meta hardware-board-meta-right">12V INPUT · 5V LOGIC</div>
+            <div className="hardware-board-meta hardware-board-meta-left">SIMULINK SYSTEM MODEL</div>
+            <div className="hardware-board-meta hardware-board-meta-right">MATLAB · CLOSED LOOP</div>
 
             <svg className="hardware-connections" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden>
               <defs>
@@ -175,7 +175,7 @@ export default function HardwareAssembly() {
                 path="M600 296 L600 205 L410 205 L410 164"
                 labelX={515}
                 labelY={215}
-                labels={["GPIO5 → TRIG", "GPIO18 → ECHO"]}
+                labels={["Radar detections", "LiDAR point cloud"]}
               />
               <Connection
                 visible={step >= 3}
@@ -183,7 +183,7 @@ export default function HardwareAssembly() {
                 path="M462 392 L392 392 L392 348 L310 348"
                 labelX={360}
                 labelY={420}
-                labels={["UART TX/RX (2 Mbps)"]}
+                labels={["Object tracks (fused)"]}
               />
               <Connection
                 visible={step >= 4}
@@ -191,7 +191,7 @@ export default function HardwareAssembly() {
                 path="M600 430 L600 492 L418 492 L418 538"
                 labelX={532}
                 labelY={505}
-                labels={["GPIO25/26 → IN1/IN2", "GPIO27 → ENA (PWM)"]}
+                labels={["Steer / accel commands", "Ego pose feedback"]}
               />
               <Connection
                 visible={step >= 5}
@@ -199,7 +199,7 @@ export default function HardwareAssembly() {
                 path="M738 360 L838 360 L838 482 L895 482"
                 labelX={835}
                 labelY={402}
-                labels={["5V / GND rail"]}
+                labels={["Scene + actors"]}
               />
               <Connection
                 visible={step >= 5}
@@ -208,16 +208,16 @@ export default function HardwareAssembly() {
                 path="M728 315 C795 245 830 235 872 245 S940 210 980 180"
                 labelX={865}
                 labelY={205}
-                labels={["WiFi: sensor data + commands"]}
+                labels={["Metrics: latency, smoothness"]}
               />
             </svg>
 
-            <HardwareNode active current={step === 1} className="node-esp32" icon={Cpu} index="01" title="ESP32" subtitle="Dev Module · WiFi + BLE" status="CONTROLLER" />
-            <HardwareNode active={step >= 2} current={step === 2} className="node-ultrasonic" icon={Radio} index="02" title="HC-SR04" subtitle="Ultrasonic Sensor" status="SENSING" />
-            <HardwareNode active={step >= 3} current={step === 3} className="node-camera" icon={Camera} index="03" title="ESP32-CAM" subtitle="OV2640 Camera Module" status="STREAMING" />
-            <HardwareNode active={step >= 4} current={step === 4} className="node-motor" icon={CircuitBoard} index="04" title="L298N" subtitle="Motor Driver · 2× DC" status="ACTUATION" />
-            <HardwareNode active={step >= 5} current={step === 5} className="node-battery" icon={BatteryCharging} index="05" title="Li-ion 2S" subtitle="Battery + Buck Converter" status="POWERED" />
-            <HardwareNode active={step >= 5} current={step === 5} className="node-laptop" icon={Laptop} index="06" title="AI Laptop" subtitle="Detection + Path Planning" status="LINKED" />
+            <HardwareNode active current={step === 1} className="node-esp32" icon={Cpu} index="01" title="Adaptive Planner" subtitle="Simulink · Navigation Toolbox · Stateflow" status="PLANNING" />
+            <HardwareNode active={step >= 2} current={step === 2} className="node-ultrasonic" icon={Radar} index="02" title="Radar + LiDAR" subtitle="Automated Driving Toolbox" status="SENSING" />
+            <HardwareNode active={step >= 3} current={step === 3} className="node-camera" icon={Camera} index="03" title="Camera Detector" subtitle="Deep Learning Toolbox · IDD" status="DETECTING" />
+            <HardwareNode active={step >= 4} current={step === 4} className="node-motor" icon={Car} index="04" title="Vehicle Dynamics" subtitle="Bicycle model · VDBS" status="DRIVING" />
+            <HardwareNode active={step >= 5} current={step === 5} className="node-battery" icon={Map} index="05" title="RoadRunner Scenes" subtitle="Village road · Urban intersection" status="LOADED" />
+            <HardwareNode active={step >= 5} current={step === 5} className="node-laptop" icon={Gauge} index="06" title="Validation Metrics" subtitle="Latency · Smoothness · Completion" status="LOGGING" />
 
             <div className="hardware-board-corner corner-a" aria-hidden />
             <div className="hardware-board-corner corner-b" aria-hidden />
@@ -247,7 +247,7 @@ export default function HardwareAssembly() {
         <div className="hardware-actions">
           {step === 5 ? (
             <Button variant="outline" size="lg" onClick={() => setStep(1)} className="hardware-replay">
-              <RotateCcw aria-hidden /> Replay assembly
+              <RotateCcw aria-hidden /> Replay build
             </Button>
           ) : (
             <>
@@ -255,7 +255,7 @@ export default function HardwareAssembly() {
                 <ArrowLeft aria-hidden /> Previous
               </Button>
               <Button size="lg" onClick={goNext} className="hardware-next">
-                Next connection <ArrowRight aria-hidden />
+                Next block <ArrowRight aria-hidden />
               </Button>
             </>
           )}

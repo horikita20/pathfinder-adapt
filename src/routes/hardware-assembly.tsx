@@ -3,9 +3,9 @@ import { ClientOnly, createFileRoute } from "@tanstack/react-router";
 
 const HardwareAssembly = lazy(() => import("@/components/hardware/HardwareAssembly"));
 
-const title = "Hardware Assembly Walkthrough | SAFEMARG";
+const title = "System Assembly Walkthrough | SAFEMARG";
 const description =
-  "Interactive five-step schematic showing how the SAFEMARG prototype connects sensors, vision, motor control, power and AI path planning.";
+  "Interactive five-step walkthrough of the SAFEMARG MATLAB/Simulink pipeline: sensor models, camera detection, adaptive planning, vehicle dynamics and RoadRunner validation.";
 
 export const Route = createFileRoute("/hardware-assembly")({
   head: () => ({
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/hardware-assembly")({
 });
 
 function Loading() {
-  return <div className="hardware-loading">Loading hardware schematic…</div>;
+  return <div className="hardware-loading">Loading system model…</div>;
 }
 
 function HardwareAssemblyPage() {

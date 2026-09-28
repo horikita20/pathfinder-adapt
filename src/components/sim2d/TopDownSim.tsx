@@ -56,6 +56,7 @@ export default function TopDownSim() {
   });
 
   const scenario = SCENARIOS.find((s) => s.id === scenarioId) ?? SCENARIOS[0]!;
+  const activeSensors = Number(sensors.camera) + Number(sensors.radar) + Number(sensors.lidar);
   const scenarioRef = useRef<Scenario>(scenario);
   const sensorsRef = useRef(sensors);
   const runningRef = useRef(running);
@@ -206,11 +207,35 @@ export default function TopDownSim() {
 
   return (
     <div className="flex min-h-[100dvh] flex-col gap-3 bg-sim-page p-3 text-sim-ink lg:flex-row">
-      <div className="relative min-h-[420px] flex-1 overflow-hidden rounded-lg border border-sim-line bg-sim-panel shadow-sm">
-        <canvas ref={canvasRef} className="h-full w-full" />
-        <div className="pointer-events-none absolute left-3 top-3 rounded-md border border-sim-line bg-sim-panel px-3 py-2 font-mono text-[11px] font-semibold uppercase tracking-widest text-sim-cyan shadow-sm backdrop-blur">
-          {scenario.name}
+      <div className="flex min-h-[420px] flex-1 flex-col gap-3">
+        <div className="relative flex-1 overflow-hidden rounded-lg border border-sim-line bg-sim-panel shadow-sm">
+          <canvas ref={canvasRef} className="h-full w-full" />
+          <div className="pointer-events-none absolute left-3 top-3 rounded-md border border-sim-line bg-sim-panel px-3 py-2 font-mono text-[11px] font-semibold uppercase tracking-widest text-sim-cyan shadow-sm backdrop-blur">
+            {scenario.name}
+          </div>
         </div>
+
+        <section className="shrink-0 rounded-lg border border-sim-line bg-sim-panel p-3 shadow-sm">
+          <h2 className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-sim-muted">
+            Perception → planning pipeline
+          </h2>
+          <div className="mt-2 flex items-stretch gap-1.5 overflow-x-auto pb-1">
+            <PipeNode title="Sensors" value={`${activeSensors}/3 online`} active={activeSensors > 0} />
+            <Arrow />
+            <PipeNode title="Fusion" value={`${stats.detected} tracks`} active={stats.detected > 0} />
+            <Arrow />
+            <PipeNode title="Prediction" value="3 s horizon" active={running && stats.detected > 0} />
+            <Arrow />
+            <PipeNode
+              title="Planner"
+              value={stats.latencyP95 ? `${stats.latency.toFixed(1)} ms` : "—"}
+              sub={`${stats.replans} replans`}
+              active={stats.replans > 0 || running}
+            />
+            <Arrow />
+            <PipeNode title="Control" value={`${(stats.speed * 3.6).toFixed(0)} km/h`} active={stats.speed > 0.1} />
+          </div>
+        </section>
       </div>
 
       <aside className="w-full shrink-0 space-y-3 lg:w-[320px]">
@@ -339,6 +364,36 @@ function Stat({ label, value, accent }: { label: string; value: string; accent?:
       <p className={`font-mono text-lg ${accent ? "text-sim-green" : "text-sim-ink"}`}>{value}</p>
     </div>
   );
+}
+
+function PipeNode({
+  title,
+  value,
+  sub,
+  active,
+}: {
+  title: string;
+  value: string;
+  sub?: string;
+  active: boolean;
+}) {
+  return (
+    <div
+      className={`min-w-[104px] flex-1 rounded-md border px-2.5 py-2 ${
+        active ? "border-sim-cyan/60 bg-sim-cyan/5" : "border-sim-line bg-sim-soft/40"
+      }`}
+    >
+      <p className="font-mono text-[9px] uppercase tracking-widest text-sim-muted">{title}</p>
+      <p className={`font-mono text-[13px] font-semibold ${active ? "text-sim-cyan" : "text-sim-muted"}`}>
+        {value}
+      </p>
+      {sub ? <p className="font-mono text-[9px] uppercase tracking-widest text-sim-muted">{sub}</p> : null}
+    </div>
+  );
+}
+
+function Arrow() {
+  return <span className="self-center shrink-0 font-mono text-xs text-sim-muted">→</span>;
 }
 
 /* ---------------------------------- sim ---------------------------------- */

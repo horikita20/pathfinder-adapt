@@ -5,7 +5,7 @@ import { Reveal, SectionTag } from "@/components/site/reveal";
 
 const title = "Team | SAFEMARG";
 const description =
-  "Meet the team behind SAFEMARG — founder Monika Sharma, building simulation-led perception and adaptive path planning for unstructured Indian roads.";
+  "Meet the SAFEMARG team — a founder-led effort building simulation-led perception and adaptive path planning for unstructured Indian roads.";
 
 export const Route = createFileRoute("/team")({
   head: () => ({

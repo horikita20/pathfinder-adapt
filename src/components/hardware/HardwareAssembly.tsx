@@ -212,12 +212,12 @@ export default function HardwareAssembly() {
               />
             </svg>
 
-            <HardwareNode active current={step === 1} className="node-esp32" icon={Cpu} index="01" title="Adaptive Planner" subtitle="Simulink · Navigation Toolbox · Stateflow" status="PLANNING" />
+            <HardwareNode active current={step === 1} className="node-esp32" icon={Cpu} index="01" title="Adaptive Planner" subtitle="Simulink · Stateflow" status="PLANNING" />
             <HardwareNode active={step >= 2} current={step === 2} className="node-ultrasonic" icon={Radar} index="02" title="Radar + LiDAR" subtitle="Automated Driving Toolbox" status="SENSING" />
             <HardwareNode active={step >= 3} current={step === 3} className="node-camera" icon={Camera} index="03" title="Camera Detector" subtitle="Deep Learning Toolbox · IDD" status="DETECTING" />
             <HardwareNode active={step >= 4} current={step === 4} className="node-motor" icon={Car} index="04" title="Vehicle Dynamics" subtitle="Bicycle model · VDBS" status="DRIVING" />
             <HardwareNode active={step >= 5} current={step === 5} className="node-battery" icon={Map} index="05" title="RoadRunner Scenes" subtitle="Village road · Urban intersection" status="LOADED" />
-            <HardwareNode active={step >= 5} current={step === 5} className="node-laptop" icon={Gauge} index="06" title="Validation Metrics" subtitle="Latency · Smoothness · Completion" status="LOGGING" />
+            <HardwareNode active={step >= 5} current={step === 5} className="node-laptop" icon={Gauge} index="06" title="Validation Metrics" subtitle="Latency · Smoothness · Done %" status="LOGGING" />
 
             <div className="hardware-board-corner corner-a" aria-hidden />
             <div className="hardware-board-corner corner-b" aria-hidden />

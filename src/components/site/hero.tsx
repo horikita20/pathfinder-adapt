@@ -40,13 +40,12 @@ export function Hero() {
 
         <Reveal delay={240}>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <button
-              type="button"
-              onClick={() => scrollToSection("demos")}
+            <Link
+              to="/matlab-demo"
               className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-primary px-7 py-3.5 text-base font-semibold text-primary-foreground transition-transform duration-200 hover:scale-[1.04] hover:shadow-[var(--shadow-glow)]"
             >
-              View demo <ArrowDown size={17} />
-            </button>
+              MATLAB demo <ArrowRight size={17} />
+            </Link>
             <button
               type="button"
               onClick={() => openEmail("Hello from your website")}

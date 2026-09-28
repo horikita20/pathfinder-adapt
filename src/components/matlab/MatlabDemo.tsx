@@ -46,7 +46,7 @@ export default function MatlabDemo() {
   useEffect(() => { logRef.current?.scrollTo(0, 1e6); }, [log]);
 
   function run() {
-    setLog((l) => [...l.slice(0, -1), ">> safemarg_main", `Loading scenario: ${SCENARIOS[scn].name}`,
+    setLog((l) => [...l.slice(0, -1), ">> safemarg_main", `Loading scenario: ${SCENARIOS[scn]!.name}`,
       "Initialising camera, radar, LiDAR models... done", "Starting simulation (simulated in browser)..."]);
     setRunning(true);
   }
@@ -57,8 +57,8 @@ export default function MatlabDemo() {
     const ctx = cv.getContext("2d")!, pctx = pc.getContext("2d")!;
     const W = cv.width, H = cv.height;
     const lanes = [W * 0.3, W * 0.5, W * 0.7];
-    const kinds = SCENARIOS[scn].obs;
-    const obs: Obs[] = kinds.map((k, i) => ({ kind: k, y: -120 - i * 170, x: lanes[i % 3] }));
+    const kinds = SCENARIOS[scn]!.obs;
+    const obs: Obs[] = kinds.map((k, i) => ({ kind: k, y: -120 - i * 170, x: lanes[i % 3]! }));
     let ego = W / 2, t = 0, avoided = 0, raf = 0, dash = 0;
     const lat: number[] = [];
     const total = 900;
@@ -67,7 +67,7 @@ export default function MatlabDemo() {
     const tick = () => {
       t++;
       dash = (dash + 4) % 40;
-      obs.forEach((o) => { o.y += 3.2; if (o.y > H + 40) { o.y = -80 - Math.random() * 200; o.x = lanes[Math.floor(Math.random() * 3)]; avoided++; } });
+      obs.forEach((o) => { o.y += 3.2; if (o.y > H + 40) { o.y = -80 - Math.random() * 200; o.x = lanes[Math.floor(Math.random() * 3)]!; avoided++; } });
       // planner: pick lane with farthest nearest obstacle ahead
       const egoY = H - 70;
       const score = (lx: number) => Math.min(...obs.filter((o) => Math.abs(o.x - lx) < 30 && o.y < egoY + 20).map((o) => egoY - o.y), 999);
@@ -179,7 +179,7 @@ export default function MatlabDemo() {
                   <span style={{ color: C.muted }} className="w-7 shrink-0 select-none text-right pr-2">{i + 1}</span>
                   {k === "cm" ? <span style={{ color: C.cm }}>{line}</span>
                     : k === "kw" ? <span style={{ color: C.kw }}>{line === "while" ? <>while <span style={{ color: C.text }}>~isDone(scenario)</span></> : line}</span>
-                    : line.includes("<S>") ? <span>scenario = loadScenario(<span style={{ color: C.str }}>'{SCENARIOS[scn].id}'</span>);</span>
+                    : line.includes("<S>") ? <span>scenario = loadScenario(<span style={{ color: C.str }}>'{SCENARIOS[scn]!.id}'</span>);</span>
                     : <span>{line}</span>}
                 </div>
               ))}
@@ -209,7 +209,7 @@ export default function MatlabDemo() {
           <table className="w-full font-mono text-[12px]">
             <thead><tr style={{ color: C.muted }}><th className="px-2 py-1 text-left font-normal">Name</th><th className="px-2 py-1 text-left font-normal">Value</th></tr></thead>
             <tbody>
-              {[["simTime", `${ws.t} s`], ["latency_ms", ws.latency], ["agentsAvoided", ws.avoided], ["lateralOffset", `${ws.offset} m`], ["completion", `${ws.completion} %`], ["scenario", `'${SCENARIOS[scn].id}'`]].map(([n, v]) => (
+              {[["simTime", `${ws.t} s`], ["latency_ms", ws.latency], ["agentsAvoided", ws.avoided], ["lateralOffset", `${ws.offset} m`], ["completion", `${ws.completion} %`], ["scenario", `'${SCENARIOS[scn]!.id}'`]].map(([n, v]) => (
                 <tr key={n as string} style={{ borderTop: `1px solid ${C.tab}` }}><td className="px-2 py-1">{n}</td><td className="px-2 py-1">{String(v)}</td></tr>
               ))}
             </tbody>

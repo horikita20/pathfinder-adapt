@@ -1,11 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Users } from "lucide-react";
 import { SiteNav } from "@/components/site/nav";
 import { Footer } from "@/components/site/contact";
 import { Reveal, SectionTag } from "@/components/site/reveal";
 
 const title = "Team | SAFEMARG";
 const description =
-  "Meet the team behind SAFEMARG — founder Monika Sharma, building simulation-led perception and adaptive path planning for unstructured Indian roads.";
+  "Meet the SAFEMARG team — a founder-led effort building simulation-led perception and adaptive path planning for unstructured Indian roads.";
 
 export const Route = createFileRoute("/team")({
   head: () => ({
@@ -69,25 +70,22 @@ function TeamPage() {
             <Reveal>
               <article className="rounded-lg border border-border bg-background p-8 shadow-[var(--shadow-card)] sm:p-10">
                 <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
-                  <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full border border-primary/45 bg-muted text-xl font-semibold text-primary">
-                    MS
+                  <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full border border-primary/45 bg-muted text-primary">
+                    <Users size={26} />
                   </div>
                   <div>
-                    <h2 className="text-xl font-semibold">Monika Sharma</h2>
-                    <p className="mt-1 text-sm text-primary">Founder &amp; CEO</p>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      Maharana Pratap Group of Institutions (MPGI), Lucknow
-                    </p>
+                    <h2 className="text-xl font-semibold">SAFEMARG team</h2>
+                    <p className="mt-1 text-sm text-primary">Founder-led &middot; Lucknow, India</p>
                     <p className="mt-5 leading-relaxed text-muted-foreground">
-                      Monika founded SAFEMARG to make autonomous driving work on the roads she
-                      actually drives on. She leads the perception and adaptive path-planning work,
-                      built the simulation environment used to validate every change, and assembled
-                      the prototype sensor and compute kit herself.
+                      SAFEMARG was founded to make autonomous driving work on Indian roads as they
+                      actually are. The founder leads the perception and adaptive path-planning
+                      work, built the simulation environment used to validate every change, and
+                      assembled the prototype sensor and compute kit.
                     </p>
                     <p className="mt-4 leading-relaxed text-muted-foreground">
-                      Her focus right now is getting the planner to hold a safe corridor through
-                      dense mixed traffic at real Indian road speeds, and taking that from
-                      simulation into a supervised closed-campus pilot.
+                      Current focus is getting the planner to hold a safe corridor through dense
+                      mixed traffic at real Indian road speeds, and taking that from simulation
+                      into a supervised closed-campus pilot.
                     </p>
                   </div>
                 </div>

@@ -217,7 +217,7 @@ export default function HardwareAssembly() {
             <HardwareNode active={step >= 3} current={step === 3} className="node-camera" icon={Camera} index="03" title="Camera Detector" subtitle="Deep Learning Toolbox · IDD" status="DETECTING" />
             <HardwareNode active={step >= 4} current={step === 4} className="node-motor" icon={Car} index="04" title="Vehicle Dynamics" subtitle="Bicycle model · VDBS" status="DRIVING" />
             <HardwareNode active={step >= 5} current={step === 5} className="node-battery" icon={Map} index="05" title="RoadRunner Scenes" subtitle="Village road · Urban intersection" status="LOADED" />
-            <HardwareNode active={step >= 5} current={step === 5} className="node-laptop" icon={Gauge} index="06" title="Validation Metrics" subtitle="Latency · Smoothness · Done %" status="LOGGING" />
+            <HardwareNode active={step >= 5} current={step === 5} className="node-laptop" icon={Gauge} index="06" title="Validation Metrics" subtitle="Latency · Path · Completion" status="LOGGING" />
 
             <div className="hardware-board-corner corner-a" aria-hidden />
             <div className="hardware-board-corner corner-b" aria-hidden />
